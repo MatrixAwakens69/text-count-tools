@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  canonicalURL?: string;
+  children: import('astro').AstroComponentInstance;
+}
+
+const { title, description = 'Free online text analysis tools - Word Counter and Reading Time Calculator. Fast, private, and works entirely in your browser.', canonicalURL = 'https://textcounttools.com' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-400.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-500.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-600.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.0.0/files/geist-mono-latin-400.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.0.0/files/geist-mono-latin-500.woff2" />
+    <script is:inline>
+      (function() {
+        try {
+          var theme = localStorage.getItem('theme');
+          var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (theme === 'dark' || (!theme && systemDark)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-bg text-text-primary antialiased transition-colors duration-200">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <slot />
+    <script is:inline src="/scripts/theme-toggle.js"></script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

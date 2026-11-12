@@ -1,0 +1,71 @@
+---
+interface Props {
+  id: string;
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  required?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
+  rows?: number;
+  error?: string;
+  hint?: string;
+  class?: string;
+  name?: string;
+  'data-autosave'?: boolean;
+}
+
+const {
+  id,
+  label,
+  placeholder,
+  value,
+  required = false,
+  disabled = false,
+  readonly = false,
+  rows = 10,
+  error,
+  hint,
+  class: className = '',
+  name,
+  'data-autosave': autosave = false,
+} = Astro.props;
+
+const inputId = id;
+const errorId = error ? `${id}-error` : undefined;
+const hintId = hint ? `${id}-hint` : undefined;
+const describedBy = [errorId, hintId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class="w-full {className}">
+  {label && (
+    <label for={inputId} class="block text-label-sm text-text-primary mb-2">
+      {label}
+      {required && <span class="text-error ml-1" aria-hidden="true">*</span>}
+    </label>
+  )}
+  <textarea
+    id={inputId}
+    placeholder={placeholder}
+    required={required}
+    disabled={disabled}
+    readonly={readonly}
+    rows={rows}
+    name={name}
+    class="input-text w-full min-h-[200px] resize-y font-sans"
+    aria-invalid={error ? 'true' : 'false'}
+    aria-describedby={describedBy}
+    aria-required={required}
+    data-autosave={autosave}
+  >{value}</textarea>
+  {error && (
+    <p id={errorId} class="mt-2 text-body-sm text-error" role="alert">
+      {error}
+    </p>
+  )}
+  {hint && !error && (
+    <p id={hintId} class="mt-2 text-body-sm text-text-muted">
+      {hint}
+    </p>
+  )}
+</div>

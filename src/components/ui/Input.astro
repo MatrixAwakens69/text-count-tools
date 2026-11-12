@@ -1,0 +1,72 @@
+---
+interface Props {
+  id: string;
+  label?: string;
+  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
+  placeholder?: string;
+  value?: string;
+  required?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
+  error?: string;
+  hint?: string;
+  class?: string;
+  autocomplete?: string;
+  name?: string;
+}
+
+const {
+  id,
+  label,
+  type = 'text',
+  placeholder,
+  value,
+  required = false,
+  disabled = false,
+  readonly = false,
+  error,
+  hint,
+  class: className = '',
+  autocomplete,
+  name,
+} = Astro.props;
+
+const inputId = id;
+const errorId = error ? `${id}-error` : undefined;
+const hintId = hint ? `${id}-hint` : undefined;
+const describedBy = [errorId, hintId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class="w-full {className}">
+  {label && (
+    <label for={inputId} class="block text-label-sm text-text-primary mb-2">
+      {label}
+      {required && <span class="text-error ml-1" aria-hidden="true">*</span>}
+    </label>
+  )}
+  <input
+    id={inputId}
+    type={type}
+    placeholder={placeholder}
+    value={value}
+    required={required}
+    disabled={disabled}
+    readonly={readonly}
+    autocomplete={autocomplete}
+    name={name}
+    class="input-text w-full"
+    aria-invalid={error ? 'true' : 'false'}
+    aria-describedby={describedBy}
+    aria-required={required}
+  />
+  {error && (
+    <p id={errorId} class="mt-2 text-body-sm text-error" role="alert">
+      {error}
+    </p>
+  )}
+  {hint && !error && (
+    <p id={hintId} class="mt-2 text-body-sm text-text-muted">
+      {hint}
+    </p>
+  )}
+</div>

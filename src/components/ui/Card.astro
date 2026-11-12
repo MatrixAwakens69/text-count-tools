@@ -1,0 +1,38 @@
+---
+interface Props {
+  children: import('astro').AstroComponentInstance;
+  variant?: 'default' | 'elevated';
+  class?: string;
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+}
+
+const {
+  children,
+  variant = 'default',
+  class: className = '',
+  padding = 'lg',
+} = Astro.props;
+
+const variantClasses = {
+  default: 'card-feature',
+  elevated: 'card-feature-elevated',
+};
+
+const paddingClasses = {
+  none: '',
+  sm: 'p-3',
+  md: 'p-4',
+  lg: 'p-6',
+  xl: 'p-8',
+};
+
+const classes = [
+  variantClasses[variant],
+  paddingClasses[padding],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={classes}>
+  {children}
+</div>

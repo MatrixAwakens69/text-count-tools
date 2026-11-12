@@ -1,0 +1,542 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Button from '../../components/ui/Button.astro';
+import Card from '../../components/ui/Card.astro';
+import Textarea from '../../components/ui/Textarea.astro';
+import Select from '../../components/ui/Select.astro'
+import Input from '../../components/ui/Input.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<Layout title="Reading Time Calculator - Text Count Tools" description="Free online reading time calculator. Estimate reading and speaking time for any text. Supports file upload (TXT, DOCX, PDF) and custom reading speeds. Works entirely in your browser.">
+  <Navigation />
+
+  <main id="main-content" class="pt-16 min-h-screen">
+    <section class="section-padding-lg" aria-labelledby="hero-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-mono-eyebrow text-text-muted mb-4">Time Estimator</p>
+          <h1 id="hero-heading" class="text-display-xl text-text-primary mb-6 leading-tight">
+            Reading Time Calculator
+          </h1>
+          <p class="text-body-lg text-text-secondary mb-8 max-w-2xl mx-auto">
+            Paste text or upload files to instantly calculate reading and speaking time. Choose from presets or set your own reading speed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" aria-labelledby="tool-heading">
+      <div class="container-main">
+        <div class="grid lg:grid-cols-[1fr_380px] gap-8 lg:gap-12">
+          <div class="space-y-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+              <h2 id="tool-heading" class="text-heading-md text-text-primary">Input Text</h2>
+              <Button
+                variant="ghost"
+                size="sm"
+                id="clear-btn"
+                aria-label="Clear all text"
+              >
+                <Icon name="trash" width="16" height="16" class="mr-1" />
+                Clear
+              </Button>
+            </div>
+
+            <div class="relative">
+              <Textarea
+                id="text-input"
+                placeholder="Paste your text here, type directly, or drag & drop a file..."
+                rows={16}
+                hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click to upload."
+              />
+              <div
+                id="drop-zone"
+                class="absolute inset-0 border-2 border-dashed border-border rounded-md flex items-center justify-center pointer-events-none transition-colors bg-bg-elevated/50"
+                aria-hidden="true"
+              >
+                <div class="text-center p-8">
+                  <Icon name="upload" width="48" height="48" class="mx-auto mb-4 text-text-muted" />
+                  <p class="text-body-md text-text-secondary">Drag & drop a file here</p>
+                  <p class="text-body-sm text-text-muted mt-1">TXT, MD, PDF, DOCX (max 10MB)</p>
+                </div>
+              </div>
+              <input
+                type="file"
+                id="file-input"
+                accept=".txt,.md,.markdown,.pdf,.docx"
+                class="absolute inset-0 opacity-0 cursor-pointer"
+                aria-label="Upload a text file"
+              />
+            </div>
+
+            <div id="file-info" class="hidden flex items-center justify-between p-4 bg-bg-elevated border border-border rounded-md">
+              <div class="flex items-center gap-3">
+                <Icon name="file" width="20" height="20" class="text-text-muted" />
+                <div>
+                  <p id="file-name" class="text-body-md text-text-primary"></p>
+                  <p id="file-size" class="text-body-sm text-text-muted"></p>
+                </div>
+              </div>
+              <Button variant="ghost" size="sm" id="remove-file-btn" aria-label="Remove uploaded file">
+                <Icon name="trash" width="16" height="16" />
+              </Button>
+            </div>
+          </div>
+
+          <aside class="space-y-6" aria-labelledby="results-heading">
+            <div id="results-loading" class="card-feature p-6" aria-live="polite">
+              <div class="flex items-center gap-4">
+                <div class="animate-pulse bg-border-soft rounded-full h-8 w-24"></div>
+                <div class="animate-pulse bg-border-soft rounded-full h-8 w-32"></div>
+              </div>
+              <div class="mt-4 grid grid-cols-2 gap-4">
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+              </div>
+            </div>
+
+            <div id="results-content" class="hidden">
+              <Card variant="default" padding="lg">
+                <h3 id="results-heading" class="text-heading-md text-text-primary mb-6">Results</h3>
+
+                <div class="space-y-5">
+                  <div class="bg-bg p-5 rounded-md border border-border">
+                    <div class="flex items-baseline justify-between gap-4 mb-2">
+                      <dt class="text-label-sm text-text-secondary">Reading Time</dt>
+                      <dd id="reading-time" class="text-2xl font-semibold text-text-primary tabular-nums">0m 0s</dd>
+                    </div>
+                    <div class="flex items-center gap-2 text-body-sm text-text-muted">
+                      <Icon name="clock" width="14" height="14" />
+                      <span id="finish-time">If you start now, you'll finish at --:--</span>
+                    </div>
+                  </div>
+
+                  <div class="bg-bg p-5 rounded-md border border-border">
+                    <div class="flex items-baseline justify-between gap-4 mb-2">
+                      <dt class="text-label-sm text-text-secondary">Speaking Time</dt>
+                      <dd id="speaking-time" class="text-2xl font-semibold text-text-primary tabular-nums">0m 0s</dd>
+                    </div>
+                    <p class="text-body-sm text-text-muted">At 130 words per minute (average speaking pace)</p>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4 pt-2 border-t border-border">
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Total Words</dt>
+                      <dd id="total-words" class="text-2xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Total Characters</dt>
+                      <dd id="total-chars" class="text-2xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <Card variant="default" padding="lg" class="mt-6">
+                <h3 class="text-heading-md text-text-primary mb-4">Reading Speed</h3>
+
+                <div class="space-y-4">
+                  <Select
+                    id="speed-preset"
+                    name="speed-preset"
+                    label="Reading speed preset"
+                    options={[
+                      { value: 'very-slow', label: 'Very Slow (100 wpm) — Complex technical content' },
+                      { value: 'academic', label: 'Academic Paper (150 wpm) — Dense academic papers' },
+                      { value: 'scientific', label: 'Scientific Journal (180 wpm) — Highly technical material' },
+                      { value: 'general', label: 'General Reading (200 wpm) — Average adult reading' },
+                      { value: 'novel', label: 'Novel / Fiction (250 wpm) — Enjoyable reading' },
+                      { value: 'fast', label: 'Fast Reader (300 wpm) — Experienced speed readers' },
+                      { value: 'custom', label: 'Custom WPM — Set your own speed' },
+                    ]}
+                    value="general"
+                  />
+
+                  <div id="custom-wpm-container" class="hidden">
+                    <Input
+                      id="custom-wpm"
+                      type="number"
+                      label="Custom words per minute"
+                      placeholder="200"
+                      min="50"
+                      max="1000"
+                      step="10"
+                      value="200"
+                      hint="Enter a value between 50 and 1000 WPM"
+                    />
+                  </div>
+                </div>
+              </Card>
+
+              <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-text-primary text-bg px-4 py-3 rounded-md shadow-floating flex items-center gap-2" role="alert" aria-live="polite"></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-padding bg-bg-elevated border-y border-border" aria-labelledby="faq-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <p class="text-mono-eyebrow text-text-muted mb-3">Frequently Asked Questions</p>
+          <h2 id="faq-heading" class="text-heading-lg text-text-primary mb-4">Everything you need to know</h2>
+        </div>
+
+        <dl class="space-y-4 max-w-3xl mx-auto">
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  How is reading time calculated?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Reading time = word count ÷ words per minute (WPM). We use standard word counting (regex word boundaries). Speaking time uses 130 WPM, the average speaking pace.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Which reading speed should I choose?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  General Reading (200 WPM) works for most content. Use Academic/Scientific for dense papers, Novel for fiction, or Custom for your measured speed.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Is my text sent to a server?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  No. All calculations happen in your browser. Your text never leaves your device.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  What file formats are supported?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  TXT, Markdown (MD), PDF, and DOCX files up to 10MB. Drag & drop or click to upload.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Does it work offline?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Yes! Once loaded, the calculator works completely offline with no network requests needed.
+                </dd>
+              </details>
+            </dt>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+
+  <script is:inline>
+    (function() {
+      'use strict';
+
+      const STORAGE_KEY = 'reading-time-text';
+      const STORAGE_SPEED_KEY = 'reading-time-speed';
+
+      const textarea = document.getElementById('text-input');
+      const fileInput = document.getElementById('file-input');
+      const dropZone = document.getElementById('drop-zone');
+      const fileInfo = document.getElementById('file-info');
+      const fileName = document.getElementById('file-name');
+      const fileSize = document.getElementById('file-size');
+      const removeFileBtn = document.getElementById('remove-file-btn');
+      const clearBtn = document.getElementById('clear-btn');
+      const speedPreset = document.getElementById('speed-preset');
+      const customWpmContainer = document.getElementById('custom-wpm-container');
+      const customWpmInput = document.getElementById('custom-wpm');
+      const resultsLoading = document.getElementById('results-loading');
+      const resultsContent = document.getElementById('results-content');
+      const toast = document.getElementById('toast');
+
+      const resultElements = {
+        readingTime: document.getElementById('reading-time'),
+        speakingTime: document.getElementById('speaking-time'),
+        finishTime: document.getElementById('finish-time'),
+        totalWords: document.getElementById('total-words'),
+        totalChars: document.getElementById('total-chars'),
+      };
+
+      const READING_SPEED_PRESETS = {
+        'very-slow': 100,
+        'academic': 150,
+        'scientific': 180,
+        'general': 200,
+        'novel': 250,
+        'fast': 300,
+        'custom': 0,
+      };
+
+      const SPEAKING_SPEED_WPM = 130;
+
+      function showToast(message, isError = false) {
+        toast.textContent = message;
+        toast.style.backgroundColor = isError ? '#ee0000' : '#171717';
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3000);
+      }
+
+      function formatNumber(num) {
+        return num.toLocaleString();
+      }
+
+      function formatTime(totalSeconds) {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        if (minutes === 0) return `${seconds}s`;
+        if (seconds === 0) return `${minutes}m`;
+        return `${minutes}m ${seconds}s`;
+      }
+
+      function formatFinishTime(date) {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      function getCurrentWPM() {
+        const preset = speedPreset.value;
+        if (preset === 'custom') {
+          return parseInt(customWpmInput.value, 10) || 200;
+        }
+        return READING_SPEED_PRESETS[preset] || 200;
+      }
+
+      function updateResults(text) {
+        const trimmed = text.trim();
+        const wpm = getCurrentWPM();
+
+        if (!trimmed) {
+          Object.values(resultElements).forEach(el => {
+            if (el.id === 'finish-time') {
+              el.textContent = "If you start now, you'll finish at --:--";
+            } else {
+              el.textContent = '0';
+            }
+          });
+          return;
+        }
+
+        const words = trimmed.match(/\b\w+\b/g) || [];
+        const wordCount = words.length;
+        const characters = trimmed.length;
+
+        const readingSeconds = Math.round((wordCount / wpm) * 60);
+        const speakingSeconds = Math.round((wordCount / SPEAKING_SPEED_WPM) * 60);
+        const finishTime = new Date(Date.now() + readingSeconds * 1000);
+
+        resultElements.readingTime.textContent = formatTime(readingSeconds);
+        resultElements.speakingTime.textContent = formatTime(speakingSeconds);
+        resultElements.finishTime.textContent = `If you start now, you'll finish at ${formatFinishTime(finishTime)}`;
+        resultElements.totalWords.textContent = formatNumber(wordCount);
+        resultElements.totalChars.textContent = formatNumber(characters);
+
+        resultsLoading.classList.add('hidden');
+        resultsContent.classList.remove('hidden');
+      }
+
+      function saveToStorage(text) {
+        try {
+          localStorage.setItem(STORAGE_KEY, text);
+        } catch (e) {}
+      }
+
+      function loadFromStorage() {
+        try {
+          return localStorage.getItem(STORAGE_KEY) || '';
+        } catch (e) {
+          return '';
+        }
+      }
+
+      function saveSpeedToStorage(preset, customWpm) {
+        try {
+          localStorage.setItem(STORAGE_SPEED_KEY, JSON.stringify({ preset, customWpm }));
+        } catch (e) {}
+      }
+
+      function loadSpeedFromStorage() {
+        try {
+          const stored = localStorage.getItem(STORAGE_SPEED_KEY);
+          if (stored) return JSON.parse(stored);
+        } catch (e) {}
+        return { preset: 'general', customWpm: 200 };
+      }
+
+      function clearAll() {
+        textarea.value = '';
+        saveToStorage('');
+        updateResults('');
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        dropZone.classList.remove('hidden');
+        showToast('Text cleared');
+      }
+
+      async function handleFile(file) {
+        const { validateFile, readFileContent } = await import('/scripts/file-reader.js');
+        const validation = validateFile(file);
+        if (!validation.valid) {
+          showToast(validation.error, true);
+          return;
+        }
+
+        dropZone.classList.add('hidden');
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        fileInfo.classList.remove('hidden');
+
+        try {
+          const text = await readFileContent(file);
+          textarea.value = text;
+          saveToStorage(text);
+          updateResults(text);
+          showToast('File loaded successfully');
+        } catch (error) {
+          showToast('Failed to read file: ' + error.message, true);
+          fileInfo.classList.add('hidden');
+          dropZone.classList.remove('hidden');
+        }
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      }
+
+      let debounceTimer = null;
+      function debouncedUpdate(text) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          updateResults(text);
+          saveToStorage(text);
+        }, 100);
+      }
+
+      textarea.addEventListener('input', (e) => {
+        debouncedUpdate(e.target.value);
+      });
+
+      clearBtn.addEventListener('click', clearAll);
+
+      removeFileBtn.addEventListener('click', () => {
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        dropZone.classList.remove('hidden');
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleFile(file);
+      });
+
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--color-link)';
+        dropZone.style.backgroundColor = 'var(--color-link-soft)';
+      });
+
+      dropZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.backgroundColor = '';
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.backgroundColor = '';
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+
+      textarea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--color-link)';
+        dropZone.style.backgroundColor = 'var(--color-link-soft)';
+      });
+
+      textarea.addEventListener('dragleave', (e) => {
+        if (!textarea.contains(e.relatedTarget)) {
+          dropZone.style.borderColor = '';
+          dropZone.style.backgroundColor = '';
+        }
+      });
+
+      textarea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.backgroundColor = '';
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+
+      speedPreset.addEventListener('change', (e) => {
+        const isCustom = e.target.value === 'custom';
+        customWpmContainer.classList.toggle('hidden', !isCustom);
+        saveSpeedToStorage(e.target.value, parseInt(customWpmInput.value, 10) || 200);
+        updateResults(textarea.value);
+      });
+
+      customWpmInput.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value >= 50 && value <= 1000) {
+          saveSpeedToStorage('custom', value);
+          updateResults(textarea.value);
+        }
+      });
+
+      const savedText = loadFromStorage();
+      const savedSpeed = loadSpeedFromStorage();
+
+      speedPreset.value = savedSpeed.preset;
+      if (savedSpeed.preset === 'custom') {
+        customWpmContainer.classList.remove('hidden');
+        customWpmInput.value = savedSpeed.customWpm;
+      }
+
+      if (savedText) {
+        textarea.value = savedText;
+        updateResults(savedText);
+      } else {
+        updateResults('');
+      }
+    })();
+  </script>
+</Layout>

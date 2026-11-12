@@ -1,0 +1,551 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Button from '../../components/ui/Button.astro';
+import Textarea from '../../components/ui/Textarea.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<Layout title="Word Counter - Text Count Tools" description="Free online word counter with live statistics. Count words, characters, sentences, paragraphs, and more. Supports file upload (TXT, DOCX, PDF). Works entirely in your browser.">
+  <Navigation />
+
+  <main id="main-content" class="pt-16 min-h-screen">
+    <section class="section-padding-lg" aria-labelledby="hero-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-mono-eyebrow text-text-muted mb-4">Flagship Tool</p>
+          <h1 id="hero-heading" class="text-display-xl text-text-primary mb-6 leading-tight">
+            Word Counter
+          </h1>
+          <p class="text-body-lg text-text-secondary mb-8 max-w-2xl mx-auto">
+            Paste text, type directly, or upload files to get instant word count and detailed text statistics. Everything runs locally in your browser — your data never leaves your device.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" aria-labelledby="tool-heading">
+      <div class="container-main">
+        <div class="grid lg:grid-cols-[1fr_380px] gap-8 lg:gap-12">
+          <div class="space-y-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+              <h2 id="tool-heading" class="text-heading-md text-text-primary">Input Text</h2>
+              <div class="flex items-center gap-2 flex-wrap">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  id="clear-btn"
+                  aria-label="Clear all text"
+                >
+                  <Icon name="trash" width="16" height="16" class="mr-1" />
+                  Clear
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  id="download-stats-btn"
+                  aria-label="Download statistics as JSON"
+                >
+                  <Icon name="download" width="16" height="16" class="mr-1" />
+                  Download Stats
+                </Button>
+              </div>
+            </div>
+
+            <div class="relative">
+              <Textarea
+                id="text-input"
+                placeholder="Paste your text here, type directly, or drag & drop a file..."
+                rows={16}
+                data-autosave
+                hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click to upload."
+              />
+              <div
+                id="drop-zone"
+                class="absolute inset-0 border-2 border-dashed border-border rounded-md flex items-center justify-center pointer-events-none transition-colors bg-bg-elevated/50"
+                aria-hidden="true"
+              >
+                <div class="text-center p-8">
+                  <Icon name="upload" width="48" height="48" class="mx-auto mb-4 text-text-muted" />
+                  <p class="text-body-md text-text-secondary">Drag & drop a file here</p>
+                  <p class="text-body-sm text-text-muted mt-1">TXT, MD, PDF, DOCX (max 10MB)</p>
+                </div>
+              </div>
+              <input
+                type="file"
+                id="file-input"
+                accept=".txt,.md,.markdown,.pdf,.docx"
+                class="absolute inset-0 opacity-0 cursor-pointer"
+                aria-label="Upload a text file"
+              />
+            </div>
+
+            <div id="file-info" class="hidden flex items-center justify-between p-4 bg-bg-elevated border border-border rounded-md">
+              <div class="flex items-center gap-3">
+                <Icon name="file" width="20" height="20" class="text-text-muted" />
+                <div>
+                  <p id="file-name" class="text-body-md text-text-primary"></p>
+                  <p id="file-size" class="text-body-sm text-text-muted"></p>
+                </div>
+              </div>
+              <Button variant="ghost" size="sm" id="remove-file-btn" aria-label="Remove uploaded file">
+                <Icon name="trash" width="16" height="16" />
+              </Button>
+            </div>
+          </div>
+
+          <aside class="space-y-6" aria-labelledby="stats-heading">
+            <div id="stats-loading" class="card-feature p-6" aria-live="polite">
+              <div class="flex items-center gap-4">
+                <div class="animate-pulse bg-border-soft rounded-full h-8 w-24"></div>
+                <div class="animate-pulse bg-border-soft rounded-full h-8 w-32"></div>
+              </div>
+              <div class="mt-4 grid grid-cols-2 gap-4">
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+                <div class="animate-pulse bg-border-soft rounded-md h-16"></div>
+              </div>
+            </div>
+
+            <div id="stats-content" class="hidden">
+              <Card variant="default" padding="lg">
+                <h3 id="stats-heading" class="text-heading-md text-text-primary mb-6">Statistics</h3>
+                <dl class="space-y-4" id="stats-list">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Words</dt>
+                      <dd id="stat-words" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Characters</dt>
+                      <dd id="stat-chars" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Chars (no spaces)</dt>
+                      <dd id="stat-chars-no-spaces" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Sentences</dt>
+                      <dd id="stat-sentences" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Paragraphs</dt>
+                      <dd id="stat-paragraphs" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Lines</dt>
+                      <dd id="stat-lines" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4 pt-2 border-t border-border">
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Avg Word Length</dt>
+                      <dd id="stat-avg-word" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                    <div class="bg-bg p-4 rounded-md">
+                      <dt class="text-body-sm text-text-muted mb-1">Avg Sentence Length</dt>
+                      <dd id="stat-avg-sentence" class="text-3xl font-semibold text-text-primary tabular-nums">0</dd>
+                    </div>
+                  </div>
+                </dl>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    id="copy-stats-btn"
+                    aria-label="Copy statistics to clipboard"
+                  >
+                    <Icon name="copy" width="16" height="16" class="mr-1" />
+                    Copy Stats
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    id="copy-text-btn"
+                    aria-label="Copy input text to clipboard"
+                  >
+                    <Icon name="copy" width="16" height="16" class="mr-1" />
+                    Copy Text
+                  </Button>
+                </div>
+              </Card>
+
+              <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-text-primary text-bg px-4 py-3 rounded-md shadow-floating flex items-center gap-2" role="alert" aria-live="polite"></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-padding bg-bg-elevated border-y border-border" aria-labelledby="faq-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <p class="text-mono-eyebrow text-text-muted mb-3">Frequently Asked Questions</p>
+          <h2 id="faq-heading" class="text-heading-lg text-text-primary mb-4">Everything you need to know</h2>
+        </div>
+
+        <dl class="space-y-4 max-w-3xl mx-auto" style="--details-radius: 12px;">
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Is my text data sent to a server?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  No. Everything runs entirely in your browser. Your text never leaves your device, and we don't store or transmit any of your data.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  What file formats are supported?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  We support TXT, Markdown (MD), PDF, and DOCX files up to 10MB in size. You can drag & drop files or click to browse.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Does auto-save work across browser sessions?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Yes. Your text is saved to localStorage automatically as you type. It will be restored when you return to the page, even after closing the browser.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Can I use this offline?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Yes! Once loaded, the tool works completely offline. All text processing happens in your browser with no network requests required.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  How accurate are the statistics?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Our algorithms follow standard text analysis conventions. Word count uses regex word boundaries, sentences are detected by punctuation, and paragraphs by double newlines.
+                </dd>
+              </details>
+            </dt>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+
+  <script is:inline>
+    (function() {
+      'use strict';
+
+      const STORAGE_KEY = 'word-counter-text';
+      const textarea = document.getElementById('text-input');
+      const fileInput = document.getElementById('file-input');
+      const dropZone = document.getElementById('drop-zone');
+      const fileInfo = document.getElementById('file-info');
+      const fileName = document.getElementById('file-name');
+      const fileSize = document.getElementById('file-size');
+      const removeFileBtn = document.getElementById('remove-file-btn');
+      const clearBtn = document.getElementById('clear-btn');
+      const copyStatsBtn = document.getElementById('copy-stats-btn');
+      const copyTextBtn = document.getElementById('copy-text-btn');
+      const downloadStatsBtn = document.getElementById('download-stats-btn');
+      const statsLoading = document.getElementById('stats-loading');
+      const statsContent = document.getElementById('stats-content');
+      const toast = document.getElementById('toast');
+
+      const statElements = {
+        words: document.getElementById('stat-words'),
+        chars: document.getElementById('stat-chars'),
+        charsNoSpaces: document.getElementById('stat-chars-no-spaces'),
+        sentences: document.getElementById('stat-sentences'),
+        paragraphs: document.getElementById('stat-paragraphs'),
+        lines: document.getElementById('stat-lines'),
+        avgWord: document.getElementById('stat-avg-word'),
+        avgSentence: document.getElementById('stat-avg-sentence'),
+      };
+
+      function showToast(message, isError = false) {
+        toast.textContent = message;
+        toast.style.backgroundColor = isError ? '#ee0000' : '#171717';
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3000);
+      }
+
+      function formatNumber(num) {
+        return num.toLocaleString();
+      }
+
+      function updateStats(text) {
+        const trimmed = text.trim();
+
+        if (!trimmed) {
+          Object.values(statElements).forEach(el => el.textContent = '0');
+          return;
+        }
+
+        const lines = trimmed.split('\n');
+        const lineCount = lines.length;
+
+        const paragraphs = trimmed.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+        const paragraphCount = paragraphs.length;
+
+        const words = trimmed.match(/\b\w+\b/g) || [];
+        const wordCount = words.length;
+
+        const characters = trimmed.length;
+        const charactersNoSpaces = trimmed.replace(/\s/g, '').length;
+
+        const sentences = trimmed.match(/[.!?]+(?:\s+|$)/g) || [];
+        const sentenceCount = sentences.length || (wordCount > 0 ? 1 : 0);
+
+        const avgWordLength = wordCount > 0
+          ? words.reduce((sum, w) => sum + w.length, 0) / wordCount
+          : 0;
+
+        const avgSentenceLength = sentenceCount > 0
+          ? wordCount / sentenceCount
+          : 0;
+
+        statElements.words.textContent = formatNumber(wordCount);
+        statElements.chars.textContent = formatNumber(characters);
+        statElements.charsNoSpaces.textContent = formatNumber(charactersNoSpaces);
+        statElements.sentences.textContent = formatNumber(sentenceCount);
+        statElements.paragraphs.textContent = formatNumber(paragraphCount);
+        statElements.lines.textContent = formatNumber(lineCount);
+        statElements.avgWord.textContent = avgWordLength.toFixed(2);
+        statElements.avgSentence.textContent = avgSentenceLength.toFixed(2);
+
+        statsLoading.classList.add('hidden');
+        statsContent.classList.remove('hidden');
+      }
+
+      function saveToStorage(text) {
+        try {
+          localStorage.setItem(STORAGE_KEY, text);
+        } catch (e) {}
+      }
+
+      function loadFromStorage() {
+        try {
+          return localStorage.getItem(STORAGE_KEY) || '';
+        } catch (e) {
+          return '';
+        }
+      }
+
+      function clearAll() {
+        textarea.value = '';
+        saveToStorage('');
+        updateStats('');
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        dropZone.classList.remove('hidden');
+        showToast('Text cleared');
+      }
+
+      async function handleFile(file) {
+        const { validateFile, readFileContent } = await import('/scripts/file-reader.js');
+        const validation = validateFile(file);
+        if (!validation.valid) {
+          showToast(validation.error, true);
+          return;
+        }
+
+        dropZone.classList.add('hidden');
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        fileInfo.classList.remove('hidden');
+
+        try {
+          const text = await readFileContent(file);
+          textarea.value = text;
+          saveToStorage(text);
+          updateStats(text);
+          showToast('File loaded successfully');
+        } catch (error) {
+          showToast('Failed to read file: ' + error.message, true);
+          fileInfo.classList.add('hidden');
+          dropZone.classList.remove('hidden');
+        }
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      }
+
+      async function copyStats() {
+        const stats = {
+          words: statElements.words.textContent,
+          characters: statElements.chars.textContent,
+          charactersNoSpaces: statElements.charsNoSpaces.textContent,
+          sentences: statElements.sentences.textContent,
+          paragraphs: statElements.paragraphs.textContent,
+          lines: statElements.lines.textContent,
+          averageWordLength: statElements.avgWord.textContent,
+          averageSentenceLength: statElements.avgSentence.textContent,
+        };
+
+        try {
+          await navigator.clipboard.writeText(JSON.stringify(stats, null, 2));
+          showToast('Statistics copied to clipboard');
+        } catch (e) {
+          showToast('Failed to copy', true);
+        }
+      }
+
+      async function copyText() {
+        try {
+          await navigator.clipboard.writeText(textarea.value);
+          showToast('Text copied to clipboard');
+        } catch (e) {
+          showToast('Failed to copy', true);
+        }
+      }
+
+      function downloadStats() {
+        const stats = {
+          words: parseInt(statElements.words.textContent.replace(/,/g, ''), 10),
+          characters: parseInt(statElements.chars.textContent.replace(/,/g, ''), 10),
+          charactersNoSpaces: parseInt(statElements.charsNoSpaces.textContent.replace(/,/g, ''), 10),
+          sentences: parseInt(statElements.sentences.textContent.replace(/,/g, ''), 10),
+          paragraphs: parseInt(statElements.paragraphs.textContent.replace(/,/g, ''), 10),
+          lines: parseInt(statElements.lines.textContent.replace(/,/g, ''), 10),
+          averageWordLength: parseFloat(statElements.avgWord.textContent),
+          averageSentenceLength: parseFloat(statElements.avgSentence.textContent),
+          timestamp: new Date().toISOString(),
+        };
+
+        const blob = new Blob([JSON.stringify(stats, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'word-count-stats.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Statistics downloaded');
+      }
+
+      let debounceTimer = null;
+      function debouncedUpdate(text) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          updateStats(text);
+          saveToStorage(text);
+        }, 100);
+      }
+
+      textarea.addEventListener('input', (e) => {
+        debouncedUpdate(e.target.value);
+      });
+
+      clearBtn.addEventListener('click', clearAll);
+      copyStatsBtn.addEventListener('click', copyStats);
+      copyTextBtn.addEventListener('click', copyText);
+      downloadStatsBtn.addEventListener('click', downloadStats);
+
+      removeFileBtn.addEventListener('click', () => {
+        fileInput.value = '';
+        fileInfo.classList.add('hidden');
+        dropZone.classList.remove('hidden');
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleFile(file);
+      });
+
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--color-link)';
+        dropZone.style.backgroundColor = 'var(--color-link-soft)';
+      });
+
+      dropZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.backgroundColor = '';
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.backgroundColor = '';
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+
+      textarea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--color-link)';
+        dropZone.style.backgroundColor = 'var(--color-link-soft)';
+      });
+
+      textarea.addEventListener('dragleave', (e) => {
+        if (!textarea.contains(e.relatedTarget)) {
+          dropZone.style.borderColor = '';
+          dropZone.style.backgroundColor = '';
+        }
+      });
+
+      textarea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.backgroundColor = '';
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+
+      const savedText = loadFromStorage();
+      if (savedText) {
+        textarea.value = savedText;
+        updateStats(savedText);
+      } else {
+        updateStats('');
+      }
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    })();
+  </script>
+</Layout>

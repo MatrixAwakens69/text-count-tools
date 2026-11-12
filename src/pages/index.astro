@@ -1,0 +1,335 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<Layout title="Text Count Tools - Free Online Text Analysis" description="Free, fast, and private text analysis tools. Word Counter and Reading Time Calculator that run entirely in your browser. No data sent to servers.">
+  <Navigation />
+
+  <main id="main-content">
+    <section class="relative section-padding-lg mesh-gradient" aria-labelledby="hero-heading">
+      <div class="container-main">
+        <div class="max-w-4xl mx-auto text-center">
+          <p class="text-mono-eyebrow text-text-muted mb-6" style="letter-spacing: 0.1em;">Text Analysis Tools</p>
+          <h1 id="hero-heading" class="text-display-xl text-text-primary mb-6 leading-tight max-w-3xl mx-auto">
+            Fast, private text analysis<br class="hidden sm:block" />that runs in your browser
+          </h1>
+          <p class="text-body-lg text-text-secondary mb-10 max-w-2xl mx-auto">
+            Count words, calculate reading time, and analyze text instantly. No uploads, no tracking, no limits. Your data never leaves your device.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button variant="primary" size="lg" href="/tools/word-counter">
+              <Icon name="word" width="20" height="20" class="mr-2" />
+              Try Word Counter
+            </Button>
+            <Button variant="secondary" size="lg" href="/tools/reading-time-calculator">
+              <Icon name="clock" width="20" height="20" class="mr-2" />
+              Calculate Reading Time
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" aria-labelledby="features-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+          <p class="text-mono-eyebrow text-text-muted mb-3">Tools</p>
+          <h2 id="features-heading" class="text-heading-lg text-text-primary mb-4">Two powerful tools, zero compromises</h2>
+          <p class="text-body-lg text-text-secondary">
+            Each tool is built for a specific purpose with meticulous attention to detail.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <article class="card-feature-elevated p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-link-soft flex items-center justify-center">
+                <Icon name="word" width="24" height="24" class="text-link" />
+              </div>
+              <div>
+                <h3 class="text-heading-md text-text-primary">Word Counter</h3>
+                <p class="text-body-sm text-text-muted">Flagship tool</p>
+              </div>
+            </div>
+            <p class="text-body-md text-text-secondary mb-6">
+              Paste text, type directly, or upload files. Get instant statistics including words, characters, sentences, paragraphs, and averages.
+            </p>
+            <ul class="space-y-3 mb-6" role="list">
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-link flex-shrink-0" />
+                Live word, character, sentence, paragraph counts
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-link flex-shrink-0" />
+                Average word & sentence length
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-link flex-shrink-0" />
+                TXT, MD, PDF, DOCX file upload
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-link flex-shrink-0" />
+                Drag & drop support
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-link flex-shrink-0" />
+                Auto-save to localStorage
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-link flex-shrink-0" />
+                Copy & download statistics
+              </li>
+            </ul>
+            <Button variant="primary" href="/tools/word-counter" class="w-full">
+              Open Word Counter
+              <Icon name="arrowRight" width="16" height="16" class="ml-2" />
+            </Button>
+          </article>
+
+          <article class="card-feature-elevated p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-violet-soft flex items-center justify-center">
+                <Icon name="clock" width="24" height="24" class="text-violet" />
+              </div>
+              <div>
+                <h3 class="text-heading-md text-text-primary">Reading Time Calculator</h3>
+                <p class="text-body-sm text-text-muted">Time estimator</p>
+              </div>
+            </div>
+            <p class="text-body-md text-text-secondary mb-6">
+              Calculate how long it takes to read or speak any text. Choose from presets or set your own reading speed.
+            </p>
+            <ul class="space-y-3 mb-6" role="list">
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-violet flex-shrink-0" />
+                Multiple reading speed presets
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-violet flex-shrink-0" />
+                Custom words-per-minute input
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-violet flex-shrink-0" />
+                Estimated speaking time
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-violet flex-shrink-0" />
+                Estimated finish time
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-violet flex-shrink-0" />
+                TXT, MD, PDF, DOCX file upload
+              </li>
+              <li class="flex items-center gap-3 text-body-md text-text-secondary">
+                <Icon name="checkCircle" width="20" height="20" class="text-violet flex-shrink-0" />
+                Instant calculations
+              </li>
+            </ul>
+            <Button variant="primary" href="/tools/reading-time-calculator" class="w-full">
+              Calculate Reading Time
+              <Icon name="arrowRight" width="16" height="16" class="ml-2" />
+            </Button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding bg-bg-elevated border-y border-border" aria-labelledby="why-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+          <p class="text-mono-eyebrow text-text-muted mb-3">Why choose us</p>
+          <h2 id="why-heading" class="text-heading-lg text-text-primary mb-4">Built differently</h2>
+          <p class="text-body-lg text-text-secondary">
+            We made deliberate choices to create the best text analysis experience.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <Card variant="default" padding="lg">
+            <div class="w-10 h-10 rounded-md bg-link-soft flex items-center justify-center mb-4">
+              <Icon name="eye" width="20" height="20" class="text-link" />
+            </div>
+            <h3 class="text-heading-md text-text-primary mb-2">Truly private</h3>
+            <p class="text-body-md text-text-secondary">
+              Everything runs client-side. Your text never touches a server. No accounts, no tracking, no analytics on your content.
+            </p>
+          </Card>
+
+          <Card variant="default" padding="lg">
+            <div class="w-10 h-10 rounded-md bg-cyan-soft flex items-center justify-center mb-4">
+              <Icon name="zap" width="20" height="20" class="text-cyan" />
+            </div>
+            <h3 class="text-heading-md text-text-primary mb-2">Instant results</h3>
+            <p class="text-body-md text-text-secondary">
+              No loading spinners, no network requests. Statistics update in real-time as you type or paste.
+            </p>
+          </Card>
+
+          <Card variant="default" padding="lg">
+            <div class="w-10 h-10 rounded-md bg-violet-soft flex items-center justify-center mb-4">
+              <Icon name="wifi-off" width="20" height="20" class="text-violet" />
+            </div>
+            <h3 class="text-heading-md text-text-primary mb-2">Works offline</h3>
+            <p class="text-body-md text-text-secondary">
+              Once loaded, the tools work completely offline. Perfect for travel, secure environments, or unreliable connections.
+            </p>
+          </Card>
+
+          <Card variant="default" padding="lg">
+            <div class="w-10 h-10 rounded-md bg-pink-soft flex items-center justify-center mb-4">
+              <Icon name="file" width="20" height="20" class="text-pink" />
+            </div>
+            <h3 class="text-heading-md text-text-primary mb-2">File support</h3>
+            <p class="text-body-md text-text-secondary">
+              Upload TXT, Markdown, PDF, and DOCX files up to 10MB. Drag & drop or click to browse.
+            </p>
+          </Card>
+
+          <Card variant="default" padding="lg">
+            <div class="w-10 h-10 rounded-md bg-warning-soft flex items-center justify-center mb-4">
+              <Icon name="save" width="20" height="20" class="text-warning" />
+            </div>
+            <h3 class="text-heading-md text-text-primary mb-2">Auto-save</h3>
+            <p class="text-body-md text-text-secondary">
+              Your text is automatically saved to localStorage. Close the tab, come back tomorrow — your work is still there.
+            </p>
+          </Card>
+
+          <Card variant="default" padding="lg">
+            <div class="w-10 h-10 rounded-md bg-gradient-develop-start/20 flex items-center justify-center mb-4">
+              <Icon name="download" width="20" height="20" class="text-gradient-develop-start" />
+            </div>
+            <h3 class="text-heading-md text-text-primary mb-2">Export data</h3>
+            <p class="text-body-md text-text-secondary">
+              Copy statistics to clipboard or download as JSON. Use the data in your workflow seamlessly.
+            </p>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-padding" aria-labelledby="faq-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <p class="text-mono-eyebrow text-text-muted mb-3">Frequently Asked Questions</p>
+          <h2 id="faq-heading" class="text-heading-lg text-text-primary mb-4">Common questions</h2>
+        </div>
+
+        <dl class="space-y-4 max-w-3xl mx-auto">
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Is my data really private?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Yes. All processing happens in your browser using JavaScript. Your text is never sent to our servers, stored in databases, or used for training. We don't even know what you're analyzing.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  What file types can I upload?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  TXT, Markdown (MD), PDF, and DOCX files up to 10MB. Drag & drop files directly into the text area or click to browse.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Does it work offline?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Yes! After the initial page load, everything works offline. The tools are installed as a Progressive Web App for offline access.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  How accurate are the counts?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  We use standard text analysis algorithms: word boundaries via regex, sentence detection by punctuation, paragraphs by double newlines. Results match industry standards.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Can I use this commercially?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  Yes, Text Count Tools is free for both personal and commercial use. No attribution required, though we appreciate a mention!
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Are there any limits?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary">
+                  No limits on text length for pasted/typed content. File uploads are limited to 10MB. The tools handle very large texts efficiently.
+                </dd>
+              </details>
+            </dt>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section-padding-lg mesh-gradient" aria-labelledby="cta-heading">
+      <div class="container-main">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 id="cta-heading" class="text-display-xl text-text-primary mb-6 leading-tight">
+            Ready to analyze your text?
+          </h2>
+          <p class="text-body-lg text-text-secondary mb-8">
+            Join thousands of writers, students, and professionals who trust Text Count Tools for fast, private text analysis.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button variant="primary" size="lg" href="/tools/word-counter">
+              Start Counting Words
+              <Icon name="arrowRight" width="16" height="16" class="ml-2" />
+            </Button>
+            <Button variant="secondary" size="lg" href="/tools/reading-time-calculator">
+              Calculate Reading Time
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>

@@ -1,0 +1,18 @@
+---
+import Icon from './Icon.astro';
+---
+
+<button
+  type="button"
+  class="btn-icon-circular"
+  data-theme-toggle
+  aria-label="Toggle dark mode"
+  aria-pressed="false"
+>
+  <span data-sun-icon class="hidden" aria-hidden="true">
+    <Icon name="sun" width="20" height="20" />
+  </span>
+  <span data-moon-icon aria-hidden="true">
+    <Icon name="moon" width="20" height="20" />
+  </span>
+</button>
