@@ -64,7 +64,7 @@ const describedBy = [errorId, hintId].filter(Boolean).join(' ') || undefined;
     </p>
   )}
   {hint && !error && (
-    <p id={hintId} class="mt-2 text-body-sm text-text-muted">
+    <p id={hintId} class="mt-2 text-body-sm text-text-muted prose-full">
       {hint}
     </p>
   )}

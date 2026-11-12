@@ -3,13 +3,13 @@ import Icon from './ui/Icon.astro';
 ---
 
 <footer class="bg-bg border-t border-border" role="contentinfo">
-  <div class="container-main py-16 lg:py-24">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+  <div class="container-main py-20 lg:py-32">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 px-4 sm:px-6 lg:px-8">
       <div class="col-span-2 md:col-span-1">
         <a href="/" class="flex items-center gap-2 text-text-primary mb-6" aria-label="Text Count Tools - Home">
           <span class="text-heading-md font-semibold tracking-tight">Text Count Tools</span>
         </a>
-        <p class="text-body-md text-text-secondary max-w-xs">
+        <p class="text-body-md text-text-secondary">
           Free, fast, and private text analysis tools that run entirely in your browser.
         </p>
       </div>
@@ -17,8 +17,8 @@ import Icon from './ui/Icon.astro';
       <nav aria-label="Tools">
         <h3 class="text-label-sm text-text-primary mb-4">Tools</h3>
         <ul class="space-y-3">
-          <li><a href="/tools/word-counter" class="text-body-md text-text-secondary hover:text-text-primary transition-colors">Word Counter</a></li>
-          <li><a href="/tools/reading-time-calculator" class="text-body-md text-text-secondary hover:text-text-primary transition-colors">Reading Time Calculator</a></li>
+          <li><a href="/tools/word-counter/" class="text-body-md text-text-secondary hover:text-text-primary transition-colors">Word Counter</a></li>
+          <li><a href="/tools/reading-time-calculator/" class="text-body-md text-text-secondary hover:text-text-primary transition-colors">Reading Time Calculator</a></li>
         </ul>
       </nav>
 
@@ -50,13 +50,13 @@ import Icon from './ui/Icon.astro';
       </nav>
     </div>
 
-    <div class="mt-12 lg:mt-16 pt-8 border-t border-border">
+    <div class="mt-16 lg:mt-20 pt-10 border-t border-border">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
         <p class="text-body-sm text-text-muted">
           © {new Date().getFullYear()} Text Count Tools. All rights reserved.
         </p>
         <p class="text-body-sm text-text-muted">
-          Made with <Icon name="heart" width="14" height="14" class="text-error" /> using Astro & Tailwind CSS
+          Made with <Icon name="heart" width="14" height="14" class="text-text-secondary" /> using Astro & Tailwind CSS
         </p>
       </div>
     </div>
