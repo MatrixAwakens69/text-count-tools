@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<Layout 
+  title="Server Error | Text Count Tools" 
+  description="Something went wrong on our end. Please try again later."
+  canonicalURL="https://textcounttools.com/500"
+  ogImage="https://textcounttools.com/og-image.png"
+  ogType="website"
+>
+  <Navigation />
+
+  <main id="main-content" class="pt-16 min-h-[80vh] flex items-center justify-center">
+    <div class="container-main text-center py-20">
+      <div class="max-w-md mx-auto">
+        <div class="text-9xl font-bold text-text-muted mb-8" aria-hidden="true">500</div>
+        <h1 class="text-display-xl text-text-primary mb-6 leading-tight">
+          Server Error
+        </h1>
+        <p class="text-body-lg text-text-secondary mb-10 prose-full">
+          Something went wrong on our end. Our team has been notified and we're working to fix it.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="/" class="btn-primary text-button-lg h-12 px-6 inline-flex items-center justify-center gap-2" role="button">
+            <Icon name="arrowRight" width="16" height="16" />
+            Back to Home
+          </a>
+          <button 
+            onclick="window.location.reload()"
+            class="btn-secondary text-button-lg h-12 px-6 inline-flex items-center justify-center gap-2" 
+            role="button"
+          >
+            <Icon name="refresh" width="16" height="16" />
+            Retry
+          </button>
+        </div>
+        
+        <div class="mt-16 text-body-sm text-text-muted">
+          <p>If the problem persists, <a href="/contact" class="text-link underline hover:text-link-deep">contact us</a>.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
