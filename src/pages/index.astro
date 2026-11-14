@@ -27,16 +27,25 @@ import Icon from '../components/ui/Icon.astro';
           <p class="text-body-lg text-text-secondary mb-10 prose-full text-center">
             Count words, calculate reading time, and analyze text instantly. No uploads, no tracking, no limits. Your data never leaves your device.
           </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/tools/word-counter/" class="btn-primary text-button-lg h-12 px-6 inline-flex items-center justify-center gap-2" role="button">
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+            <a href="/tools/word-counter" class="btn-primary text-button-lg h-12 px-6 inline-flex items-center justify-center gap-2" role="button">
               <Icon name="word" width="20" height="20" />
               Try Word Counter
             </a>
-            <a href="/tools/reading-time-calculator/" class="btn-secondary text-button-lg h-12 px-6 inline-flex items-center justify-center gap-2" role="button">
+            <a href="/tools/reading-time-calculator" class="btn-secondary text-button-lg h-12 px-6 inline-flex items-center justify-center gap-2" role="button">
               <Icon name="clock" width="20" height="20" />
               Calculate Reading Time
             </a>
           </div>
+          <nav class="flex flex-wrap items-center justify-center gap-4 text-body-md text-text-secondary" aria-label="Legal and info pages">
+            <a href="/about" class="hover:text-text-primary transition-colors">About</a>
+            <span aria-hidden="true">·</span>
+            <a href="/privacy" class="hover:text-text-primary transition-colors">Privacy</a>
+            <span aria-hidden="true">·</span>
+            <a href="/terms" class="hover:text-text-primary transition-colors">Terms</a>
+            <span aria-hidden="true">·</span>
+            <a href="/contact" class="hover:text-text-primary transition-colors">Contact</a>
+          </nav>
         </div>
       </div>
     </section>

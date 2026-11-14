@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<Layout 
+  title="About Us | Text Count Tools" 
+  description="Learn about Text Count Tools — free, privacy-first text analysis tools built for writers, students, and professionals."
+  canonicalURL="https://textcounttools.com/about"
+  ogImage="https://textcounttools.com/og-image.png"
+  ogType="website"
+>
+  <Navigation />
+
+  <main id="main-content" class="pt-16 min-h-screen">
+    <section class="section-padding-lg mesh-gradient" aria-labelledby="about-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-mono-eyebrow text-text-muted mb-4">Our Story</p>
+          <h1 id="about-heading" class="text-display-xl text-text-primary mb-6 leading-tight">
+            Built for Writers,<br class="hidden sm:block" />by Writers
+          </h1>
+          <p class="text-body-lg text-text-secondary mb-8 prose-full">
+            Text Count Tools was built to provide fast, free text analysis tools that run entirely in your browser. We display ads to keep the tools free and sustain development.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" aria-labelledby="mission-heading">
+      <div class="container-main">
+        <div class="max-w-4xl mx-auto">
+          <div class="prose-full space-y-8">
+            <section aria-labelledby="mission-heading">
+              <h2 id="mission-heading" class="text-heading-lg text-text-primary mb-4">Our Mission</h2>
+              <p class="text-body-lg text-text-secondary">
+                To provide the best free text analysis tools that respect your privacy, work offline, and get out of your way. No tracking, no accounts, no limits — just fast, accurate text analysis that runs entirely in your browser.
+              </p>
+            </section>
+
+            <section aria-labelledby="why-heading">
+              <h2 id="why-heading" class="text-heading-lg text-text-primary mb-4">Why We Built This</h2>
+              <p class="text-body-lg text-text-secondary">
+                We wanted to create the best free text analysis tools that run entirely in your browser — no servers, no tracking, no accounts required. The tools are ad-supported to keep them free and sustain ongoing development.
+              </p>
+            </section>
+
+            <section aria-labelledby="philosophy-heading">
+              <h2 id="philosophy-heading" class="text-heading-lg text-text-primary mb-4">Our Philosophy</h2>
+              <div class="grid md:grid-cols-3 gap-6">
+                <article class="card-feature p-6">
+                  <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <Icon name="eye" width="24" height="24" class="text-gray-900 dark:text-white" />
+                  </div>
+                  <h3 class="text-heading-md text-text-primary mb-2">Privacy First</h3>
+                  <p class="text-body-md text-text-secondary">
+                    Your text never leaves your device. No servers, no databases, no logging, no tracking. Ever.
+                  </p>
+                </article>
+
+                <article class="card-feature p-6">
+                  <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <Icon name="zap" width="24" height="24" class="text-gray-900 dark:text-white" />
+                  </div>
+                  <h3 class="text-heading-md text-text-primary mb-2">Speed Matters</h3>
+                  <p class="text-body-md text-text-secondary">
+                    Instant results, zero loading. Client-side processing means zero latency and zero server costs.
+                  </p>
+                </article>
+
+                <article class="card-feature p-6">
+                  <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <Icon name="wifi-off" width="24" height="24" class="text-gray-900 dark:text-white" />
+                  </div>
+                  <h3 class="text-heading-md text-text-primary mb-2">Works Offline</h3>
+                  <p class="text-body-md text-text-secondary">
+                    PWA support means full functionality without internet. Perfect for flights, secure facilities, or spotty connections.
+                  </p>
+                </article>
+
+                <article class="card-feature p-6">
+                  <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <Icon name="file" width="24" height="24" class="text-gray-900 dark:text-white" />
+                  </div>
+                  <h3 class="text-heading-md text-text-primary mb-2">File Support</h3>
+                  <p class="text-body-md text-text-secondary">
+                    Upload PDF, DOCX, TXT, MD files up to 10MB. Client-side extraction with pdfjs-dist and mammoth.js.
+                  </p>
+                </article>
+
+                <article class="card-feature p-6">
+                  <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <Icon name="save" width="24" height="24" class="text-gray-900 dark:text-white" />
+                  </div>
+                  <h3 class="text-heading-md text-text-primary mb-2">Auto-Save</h3>
+                  <p class="text-body-md text-text-secondary">
+                    Your text persists in localStorage. Close the tab, come back tomorrow — your work is still there.
+                  </p>
+                </article>
+
+                <article class="card-feature p-6">
+                  <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <Icon name="download" width="24" height="24" class="text-gray-900 dark:text-white" />
+                  </div>
+                  <h3 class="text-heading-md text-text-primary mb-2">Export Ready</h3>
+                  <p class="text-body-md text-text-secondary">
+                    Copy stats to clipboard or download as JSON. Built for modern workflows and automation.
+                  </p>
+                </article>
+              </div>
+            </section>
+
+            <section aria-labelledby="future-heading">
+              <h2 id="future-heading" class="text-heading-lg text-text-primary mb-4">What's Next</h2>
+              <p class="text-body-lg text-text-secondary">
+                We're continuously improving Text Count Tools. Planned additions include:
+              </p>
+              <ul class="list-disc list-inside space-y-2 text-body-md text-text-secondary ml-4">
+                <li>Character counter with Unicode support</li>
+                <li>Readability scores (Flesch-Kincaid, Gunning Fog, etc.)</li>
+                <li>Keyword density analyzer</li>
+                <li>Text diff/comparison tool</li>
+                <li>Batch file processing</li>
+              </ul>
+              <p class="text-body-lg text-text-secondary mt-4">
+                Have a feature request? <a href="/contact" class="text-link underline hover:text-link-deep">Let us know</a>.
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>

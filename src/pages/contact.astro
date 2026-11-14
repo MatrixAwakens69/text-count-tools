@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<Layout 
+  title="Contact Us | Text Count Tools" 
+  description="Contact Text Count Tools for questions, feedback, feature requests, or bug reports."
+  canonicalURL="https://textcounttools.com/contact"
+  ogImage="https://textcounttools.com/og-image.png"
+  ogType="website"
+>
+  <Navigation />
+
+  <main id="main-content" class="pt-16 min-h-screen">
+    <section class="section-padding-lg mesh-gradient" aria-labelledby="contact-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-mono-eyebrow text-text-muted mb-4">Get in Touch</p>
+          <h1 id="contact-heading" class="text-display-xl text-text-primary mb-6 leading-tight">
+            Contact Us
+          </h1>
+          <p class="text-body-lg text-text-secondary mb-8 prose-full">
+            Have questions, feedback, or found a bug? We'd love to hear from you.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" aria-labelledby="contact-methods">
+      <div class="container-main">
+        <div class="max-w-4xl mx-auto">
+          <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <article class="card-feature p-6 text-center">
+              <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-4">
+                <Icon name="mail" width="24" height="24" class="text-gray-900 dark:text-white" />
+              </div>
+              <h3 class="text-heading-md text-text-primary mb-2">Email</h3>
+              <p class="text-body-md text-text-secondary">
+                Best for general inquiries, partnerships, and press
+              </p>
+              <a href="mailto:hello@textcounttools.com" class="text-link underline hover:text-link-deep mt-2 inline-block">
+                hello@textcounttools.com
+              </a>
+            </article>
+
+            <article class="card-feature p-6 text-center">
+              <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-4">
+                <Icon name="github" width="24" height="24" class="text-gray-900 dark:text-white" />
+              </div>
+              <h3 class="text-heading-md text-text-primary mb-2">GitHub</h3>
+              <p class="text-body-md text-text-secondary">
+                Bug reports, feature requests, and code contributions
+              </p>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-link underline hover:text-link-deep mt-2 inline-block">
+                github.com/textcounttools
+              </a>
+            </article>
+
+            <article class="card-feature p-6 text-center">
+              <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-4">
+                <Icon name="twitter" width="24" height="24" class="text-gray-900 dark:text-white" />
+              </div>
+              <h3 class="text-heading-md text-text-primary mb-2">Twitter</h3>
+              <p class="text-body-md text-text-secondary">
+                Updates, announcements, and quick questions
+              </p>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-link underline hover:text-link-deep mt-2 inline-block">
+                @textcounttools
+              </a>
+            </article>
+          </div>
+
+          <section aria-labelledby="faq-contact-heading" class="prose-full space-y-8">
+            <h2 id="faq-contact-heading" class="text-heading-lg text-text-primary mb-6">Common Questions</h2>
+
+            <div class="space-y-6">
+              <details class="group card-feature">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  I found a bug. How do I report it?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  Please open an issue on our <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-link underline hover:text-link-deep">GitHub Issues page</a>. Include: your browser/OS, steps to reproduce, expected vs actual behavior, and screenshots if applicable. For PDF/DOCX issues, include a sample file (redacted if sensitive).
+                </dd>
+              </details>
+
+              <details class="group card-feature">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  I have a feature request. Where should I submit it?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  Open a <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-link underline hover:text-link-deep">GitHub Discussion</a> or <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-link underline hover:text-link-deep">Feature Request issue</a>. Describe the problem you're solving, your proposed solution, and any alternatives you've considered. We review all requests but can't guarantee implementation.
+                </dd>
+              </details>
+
+              <details class="group card-feature">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Can I contribute code or translations?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  Yes! We welcome pull requests. Check our <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-link underline hover:text-link-deep">CONTRIBUTING.md</a> for guidelines. For translations, we'd especially appreciate help with non-English languages.
+                </dd>
+              </details>
+
+              <details class="group card-feature">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Is there an API I can use?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  Not currently. All processing is client-side, so there's no server API. You can self-host the open-source version or use the tool directly in your browser. For automated workflows, consider using the exported JSON statistics.
+                </dd>
+              </details>
+
+              <details class="group card-feature">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Can I use Text Count Tools commercially?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  Yes. Text Count Tools is free for both personal and commercial use. No attribution required (though appreciated). See our <a href="/terms" class="text-link underline hover:text-link-deep">Terms of Service</a> for details.
+                </dd>
+              </details>
+
+              <details class="group card-feature">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  How do I request data deletion?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  We don't collect any of your data — all processing is client-side. The only local data is in your browser's localStorage (your text and theme preference), which you can clear anytime using the "Clear" button in each tool or by clearing browser data.
+                </dd>
+              </details>
+            </div>
+          </section>
+
+          <section aria-labelledby="response-time" class="prose-full space-y-4">
+            <h2 class="text-heading-lg text-text-primary mb-4">Response Time</h2>
+            <p class="text-body-lg text-text-secondary">
+              We're a small team and respond to all inquiries within <strong>2-3 business days</strong>. GitHub issues typically get faster responses. For urgent security issues, please email directly.
+            </p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>

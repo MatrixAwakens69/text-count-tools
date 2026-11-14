@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="Privacy Policy | Text Count Tools" 
+  description="Privacy Policy for Text Count Tools. Learn how we protect your data with our privacy-first, client-side text analysis tools."
+  canonicalURL="https://textcounttools.com/privacy"
+  ogImage="https://textcounttools.com/og-image.png"
+  ogType="website"
+>
+  <Navigation />
+
+  <main id="main-content" class="pt-16 min-h-screen">
+    <section class="section-padding-lg mesh-gradient" aria-labelledby="privacy-heading">
+      <div class="container-main">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-mono-eyebrow text-text-muted mb-4">Legal</p>
+          <h1 id="privacy-heading" class="text-display-xl text-text-primary mb-6 leading-tight">
+            Privacy Policy
+          </h1>
+          <p class="text-body-lg text-text-secondary mb-8 prose-full">
+            Last updated: November 2024
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" aria-labelledby="privacy-content">
+      <div class="container-main">
+        <div class="max-w-4xl mx-auto prose-full space-y-8">
+          <section aria-labelledby="overview-heading">
+            <h2 id="overview-heading" class="text-heading-lg text-text-primary mb-4">Overview</h2>
+            <p class="text-body-lg text-text-secondary">
+              Text Count Tools is built on a fundamental principle: <strong>your text belongs to you</strong>. This privacy policy explains how our tools handle your data — spoiler: we don't collect it.
+            </p>
+          </section>
+
+          <section aria-labelledby="data-collection-heading">
+            <h2 id="data-collection-heading" class="text-heading-lg text-text-primary mb-4">Data We Don't Collect</h2>
+            <ul class="list-disc list-inside space-y-3 text-body-md text-text-secondary">
+              <li>We do <strong>not</strong> collect, store, or transmit any text you enter into our tools</li>
+              <li>We do <strong>not</strong> track your usage, keystrokes, or tool interactions</li>
+              <li>We do <strong>not</strong> use analytics, tracking pixels, or third-party scripts</li>
+              <li>We do <strong>not</strong> create user profiles or associate data with identifiers</li>
+              <li>We do <strong>not</strong> share, sell, or monetize any user data</li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="how-it-works-heading">
+            <h2 id="how-it-works-heading" class="text-heading-lg text-text-primary mb-4">How Our Tools Work</h2>
+            <p class="text-body-lg text-text-secondary">
+              Both the <strong>Word Counter</strong> and <strong>Reading Time Calculator</strong> run entirely in your browser using JavaScript and WebAssembly. All text processing — counting words, calculating reading time, extracting text from PDFs and DOCX files — happens locally on your device.
+            </p>
+            <p class="text-body-lg text-text-secondary">
+              When you upload a PDF or DOCX file, the text extraction happens client-side using <code>pdfjs-dist</code> (for PDFs) and <code>mammoth.js</code> (for DOCX). The file never leaves your browser; only the extracted text appears in the tool's text area.
+            </p>
+          </section>
+
+          <section aria-labelledby="local-storage-heading">
+            <h2 id="local-storage-heading" class="text-heading-lg text-text-primary mb-4">Local Storage</h2>
+            <p class="text-body-lg text-text-secondary">
+              For convenience, our tools optionally save your text to your browser's <code>localStorage</code>. This allows you to close the tab and return later with your text intact. This data:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-body-md text-text-secondary ml-4">
+              <li>Never leaves your browser</li>
+              <li>Is not accessible to us or any third party</li>
+              <li>Can be cleared anytime using the "Clear" button in each tool</li>
+              <li>Is automatically cleared when you use the "Clear" button</li>
+            </ul>
+            <p class="text-body-lg text-text-secondary mt-4">
+              On page load, we clear this storage for privacy — each session starts fresh unless you explicitly type or paste new content.
+            </p>
+          </section>
+
+          <section aria-labelledby="cookies-heading">
+            <h2 id="cookies-heading" class="text-heading-lg text-text-primary mb-4">Cookies and Tracking</h2>
+            <p class="text-body-lg text-text-secondary">
+              We use <strong>no cookies</strong>, no tracking pixels, no fingerprinting, and no third-party analytics (no Google Analytics, no Mixpanel, no Matomo). The only client-side storage is <code>localStorage</code> for your text and theme preference (dark/light mode), both of which you control.
+            </p>
+          </section>
+
+          <section aria-labelledby="third-party-heading">
+            <h2 id="third-party-heading" class="text-heading-lg text-text-primary mb-4">Third-Party Resources</h2>
+            <p class="text-body-lg text-text-secondary">
+              Our tools load the following resources from CDNs:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-body-md text-text-secondary ml-4">
+              <li><strong>Fonts:</strong> Geist and Geist Mono from jsDelivr (@fontsource)</li>
+              <li><strong>PDF processing:</strong> pdfjs-dist from unpkg (client-side only)</li>
+              <li><strong>DOCX processing:</strong> mammoth.js from unpkg (client-side only)</li>
+            </ul>
+            <p class="text-body-lg text-text-secondary mt-4">
+              These libraries run entirely in your browser. No data is sent to their servers. Font files are cached by your browser for performance.
+            </p>
+          </section>
+
+          <section aria-labelledby="offline-heading">
+            <h2 id="offline-heading" class="text-heading-lg text-text-primary mb-4">Offline Operation</h2>
+            <p class="text-body-lg text-text-secondary">
+              After the initial page load, Text Count Tools works completely offline. We use a Service Worker to cache static assets (HTML, CSS, JS, fonts). Once cached, all functionality — including PDF/DOCX text extraction — works without an internet connection. No data is synced when you come back online.
+            </p>
+          </section>
+
+          <section aria-labelledby="children-heading">
+            <h2 id="children-heading" class="text-heading-lg text-text-primary mb-4">Children's Privacy</h2>
+            <p class="text-body-lg text-text-secondary">
+              Our tools don't collect any personal information from anyone, including children under 13. Since we don't collect data at all, COPPA compliance is inherent.
+            </p>
+          </section>
+
+          <section aria-labelledby="changes-heading">
+            <h2 id="changes-heading" class="text-heading-lg text-text-primary mb-4">Changes to This Policy</h2>
+            <p class="text-body-lg text-text-secondary">
+              Any updates to this privacy policy will be posted on this page with a revised "Last updated" date. The core principle — your text stays on your device — will never change.
+            </p>
+          </section>
+
+          <section aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="text-heading-lg text-text-primary mb-4">Contact</h2>
+            <p class="text-body-lg text-text-secondary">
+              Questions about this privacy policy? <a href="/contact" class="text-link underline hover:text-link-deep">Contact us</a>.
+            </p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>

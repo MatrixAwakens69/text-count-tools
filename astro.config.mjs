@@ -8,5 +8,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: 'https://textcounttools.com',
-  trailingSlash: 'always',
+  trailingSlash: 'never',
 });

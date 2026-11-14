@@ -11,7 +11,7 @@ import Icon from '../../components/ui/Icon.astro';
 <Layout 
   title="Word Counter - Free Online Word Count Tool | Text Count Tools" 
   description="Free online word counter with live statistics. Count words, characters, sentences, paragraphs instantly. Upload PDF, DOCX, TXT, MD files. 100% private, works offline, no limits."
-  canonicalURL="https://textcounttools.com/tools/word-counter/"
+  canonicalURL="https://textcounttools.com/tools/word-counter"
   ogImage="https://textcounttools.com/og-image.png"
   ogType="website"
 >
@@ -49,15 +49,6 @@ import Icon from '../../components/ui/Icon.astro';
                   Clear
                 </button>
                 <button
-                  id="download-stats-btn"
-                  type="button"
-                  class="btn-primary text-button-md h-8 px-3 inline-flex items-center gap-1"
-                  aria-label="Download statistics as JSON"
-                >
-                  <Icon name="download" width="16" height="16" />
-                  Download Stats
-                </button>
-                <button
                   id="upload-btn"
                   type="button"
                   class="btn-ghost-sm text-button-md h-8 px-3 inline-flex items-center gap-1"
@@ -65,6 +56,15 @@ import Icon from '../../components/ui/Icon.astro';
                 >
                   <Icon name="upload" width="16" height="16" />
                   Upload
+                </button>
+                <button
+                  id="download-stats-btn"
+                  type="button"
+                  class="btn-primary text-button-md h-8 px-3 inline-flex items-center gap-1"
+                  aria-label="Download statistics as JSON"
+                >
+                  <Icon name="download" width="16" height="16" />
+                  Download Stats
                 </button>
               </div>
             </div>
