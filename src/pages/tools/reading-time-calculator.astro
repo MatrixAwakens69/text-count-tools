@@ -34,15 +34,26 @@ import Icon from '../../components/ui/Icon.astro';
           <div class="space-y-6 w-full max-w-4xl min-w-0">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
               <h2 id="tool-heading" class="text-heading-md text-text-primary">Input Text</h2>
-              <button
-                id="clear-btn"
-                type="button"
-                class="btn-ghost-sm text-button-md h-8 px-3 inline-flex items-center gap-1"
-                aria-label="Clear all text"
-              >
-                <Icon name="trash" width="16" height="16" />
-                Clear
-              </button>
+              <div class="flex items-center gap-2 flex-wrap">
+                <button
+                  id="clear-btn"
+                  type="button"
+                  class="btn-ghost-sm text-button-md h-8 px-3 inline-flex items-center gap-1"
+                  aria-label="Clear all text"
+                >
+                  <Icon name="trash" width="16" height="16" />
+                  Clear
+                </button>
+                <button
+                  id="upload-btn"
+                  type="button"
+                  class="btn-ghost-sm text-button-md h-8 px-3 inline-flex items-center gap-1"
+                  aria-label="Upload a file"
+                >
+                  <Icon name="upload" width="16" height="16" />
+                  Upload
+                </button>
+              </div>
             </div>
 
             <div class="relative">
@@ -50,7 +61,7 @@ import Icon from '../../components/ui/Icon.astro';
                 id="text-input"
                 placeholder="Paste your text here, type directly, or drag & drop a file..."
                 rows={16}
-                hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click to upload."
+                hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click Upload button."
               />
               <div
                 id="drop-zone"
@@ -67,7 +78,7 @@ import Icon from '../../components/ui/Icon.astro';
                 type="file"
                 id="file-input"
                 accept="text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt,.md,.markdown,.pdf,.docx"
-                class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                class="hidden"
                 aria-label="Upload a text file"
               />
             </div>
@@ -90,7 +101,7 @@ import Icon from '../../components/ui/Icon.astro';
               </button>
             </div>
 </div>
-          <aside class="space-y-6 lg:w-80 shrink-0" aria-labelledby="results-heading">
+          <aside class="space-y-6 lg:w-96 shrink-0" aria-labelledby="results-heading">
             <div id="results-loading" class="card-feature p-6" aria-live="polite">
               <div class="flex items-center gap-4">
                 <div class="animate-pulse bg-border-soft rounded-full h-8 w-24"></div>
@@ -312,8 +323,8 @@ import Icon from '../../components/ui/Icon.astro';
 
       function showToast(message, isError = false) {
         toast.textContent = message;
-        toast.style.backgroundColor = isError ? 'var(--color-text-primary)' : 'var(--color-text-primary)';
-        toast.classList.remove('hidden');
+        toast.classList.remove('hidden', 'toast-error', 'toast-success');
+        toast.classList.add(isError ? 'toast-error' : 'toast-success');
         setTimeout(() => toast.classList.add('hidden'), 3000);
       }
 
@@ -353,8 +364,15 @@ import Icon from '../../components/ui/Icon.astro';
               el.textContent = '0';
             }
           });
+          resultsLoading.classList.remove('hidden');
+          resultsContent.classList.add('hidden');
+          dropZone.classList.remove('hidden');
           return;
         }
+
+        resultsLoading.classList.add('hidden');
+        resultsContent.classList.remove('hidden');
+        dropZone.classList.add('hidden');
 
         const words = trimmed.match(/\b\w+\b/g) || [];
         const wordCount = words.length;
@@ -508,7 +526,9 @@ import Icon from '../../components/ui/Icon.astro';
 
       textarea.addEventListener('dragover', (e) => {
         e.preventDefault();
-        showDropZone();
+        if (!textarea.value.trim()) {
+          showDropZone();
+        }
       });
 
       textarea.addEventListener('dragleave', (e) => {
@@ -522,6 +542,11 @@ import Icon from '../../components/ui/Icon.astro';
         hideDropZone();
         const file = e.dataTransfer.files[0];
         if (file) handleFile(file);
+      });
+
+      const uploadBtn = document.getElementById('upload-btn');
+      uploadBtn.addEventListener('click', () => {
+        fileInput.click();
       });
 
       speedPreset.addEventListener('change', (e) => {
@@ -539,21 +564,9 @@ import Icon from '../../components/ui/Icon.astro';
         }
       });
 
-      const savedText = loadFromStorage();
-      const savedSpeed = loadSpeedFromStorage();
-
-      speedPreset.value = savedSpeed.preset;
-      if (savedSpeed.preset === 'custom') {
-        customWpmContainer.classList.remove('hidden');
-        customWpmInput.value = savedSpeed.customWpm;
-      }
-
-      if (savedText) {
-        textarea.value = savedText;
-        updateResults(savedText);
-      } else {
-        updateResults('');
-      }
+      // Clear stored text on page load for privacy
+      localStorage.removeItem('reading-time-text');
+      updateResults('');
 
       textarea.focus();
     })();

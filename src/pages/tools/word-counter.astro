@@ -51,6 +51,15 @@ import Icon from '../../components/ui/Icon.astro';
                   <Icon name="download" width="16" height="16" />
                   Download Stats
                 </button>
+                <button
+                  id="upload-btn"
+                  type="button"
+                  class="btn-ghost-sm text-button-md h-8 px-3 inline-flex items-center gap-1"
+                  aria-label="Upload a file"
+                >
+                  <Icon name="upload" width="16" height="16" />
+                  Upload
+                </button>
               </div>
             </div>
 
@@ -60,7 +69,7 @@ import Icon from '../../components/ui/Icon.astro';
                 placeholder="Paste your text here, type directly, or drag & drop a file..."
                 rows={16}
                 data-autosave
-                hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click to upload."
+                hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click Upload button."
               />
               <div
                 id="drop-zone"
@@ -77,7 +86,7 @@ import Icon from '../../components/ui/Icon.astro';
                 type="file"
                 id="file-input"
                 accept="text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt,.md,.markdown,.pdf,.docx"
-                class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                class="hidden"
                 aria-label="Upload a text file"
               />
             </div>
@@ -100,7 +109,7 @@ import Icon from '../../components/ui/Icon.astro';
               </button>
             </div>
 </div>
-          <aside class="space-y-6 lg:w-80 shrink-0" aria-labelledby="stats-heading">
+          <aside class="space-y-6 lg:w-96 shrink-0" aria-labelledby="stats-heading">
             <div id="stats-loading" class="card-feature p-6" aria-live="polite">
               <div class="flex items-center gap-4">
                 <div class="animate-pulse bg-border-soft rounded-full h-8 w-24"></div>
@@ -306,8 +315,8 @@ import Icon from '../../components/ui/Icon.astro';
 
       function showToast(message, isError = false) {
         toast.textContent = message;
-        toast.style.backgroundColor = isError ? 'var(--color-text-primary)' : 'var(--color-text-primary)';
-        toast.classList.remove('hidden');
+        toast.classList.remove('hidden', 'toast-error', 'toast-success');
+        toast.classList.add(isError ? 'toast-error' : 'toast-success');
         setTimeout(() => toast.classList.add('hidden'), 3000);
       }
 
@@ -320,8 +329,15 @@ import Icon from '../../components/ui/Icon.astro';
 
         if (!trimmed) {
           Object.values(statElements).forEach(el => el.textContent = '0');
+          statsLoading.classList.remove('hidden');
+          statsContent.classList.add('hidden');
+          dropZone.classList.remove('hidden');
           return;
         }
+
+        statsLoading.classList.add('hidden');
+        statsContent.classList.remove('hidden');
+        dropZone.classList.add('hidden');
 
         const lines = trimmed.split('\n');
         const lineCount = lines.length;
@@ -354,9 +370,6 @@ import Icon from '../../components/ui/Icon.astro';
         statElements.lines.textContent = formatNumber(lineCount);
         statElements.avgWord.textContent = avgWordLength.toFixed(2);
         statElements.avgSentence.textContent = avgSentenceLength.toFixed(2);
-
-        statsLoading.classList.add('hidden');
-        statsContent.classList.remove('hidden');
       }
 
       function saveToStorage(text) {
@@ -534,7 +547,9 @@ import Icon from '../../components/ui/Icon.astro';
 
       textarea.addEventListener('dragover', (e) => {
         e.preventDefault();
-        showDropZone();
+        if (!textarea.value.trim()) {
+          showDropZone();
+        }
       });
 
       textarea.addEventListener('dragleave', (e) => {
@@ -550,13 +565,14 @@ import Icon from '../../components/ui/Icon.astro';
         if (file) handleFile(file);
       });
 
-      const savedText = loadFromStorage();
-      if (savedText) {
-        textarea.value = savedText;
-        updateStats(savedText);
-      } else {
-        updateStats('');
-      }
+      const uploadBtn = document.getElementById('upload-btn');
+      uploadBtn.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      // Clear stored text on page load for privacy
+      localStorage.removeItem('word-counter-text');
+      updateStats('');
 
       textarea.focus();
 

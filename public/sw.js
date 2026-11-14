@@ -1,10 +1,11 @@
-const CACHE_NAME = 'text-count-tools-v1';
+const CACHE_NAME = 'text-count-tools-v2';
 const STATIC_ASSETS = [
-  '/',
-  '/tools/word-counter/',
-  '/tools/reading-time-calculator/',
   '/scripts/theme-toggle.js',
   '/scripts/file-reader.js',
+  '/favicon.svg',
+  '/favicon-96x96.png',
+  '/apple-touch-icon.png',
+  '/site.webmanifest',
 ];
 
 self.addEventListener('install', (event) => {
@@ -29,6 +30,11 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+function isHtmlRequest(request) {
+  const accept = request.headers.get('accept') || '';
+  return accept.includes('text/html');
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
@@ -41,6 +47,20 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Never cache HTML pages - always fetch fresh
+  if (isHtmlRequest(request)) {
+    event.respondWith(
+      fetch(request).catch(() => {
+        if (request.mode === 'navigate') {
+          return caches.match('/');
+        }
+        return new Response('Offline', { status: 503 });
+      })
+    );
+    return;
+  }
+
+  // Cache-first for static assets (JS, CSS, images, fonts)
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
       if (cachedResponse) {
@@ -65,9 +85,6 @@ self.addEventListener('fetch', (event) => {
         }
         return networkResponse;
       }).catch(() => {
-        if (request.mode === 'navigate') {
-          return caches.match('/');
-        }
         return new Response('Offline', { status: 503 });
       });
     })
