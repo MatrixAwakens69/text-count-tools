@@ -8,7 +8,13 @@ import Card from '../../components/ui/Card.astro';
 import Icon from '../../components/ui/Icon.astro';
 ---
 
-<Layout title="Word Counter - Text Count Tools" description="Free online word counter with live statistics. Count words, characters, sentences, paragraphs, and more. Supports file upload (TXT, DOCX, PDF). Works entirely in your browser.">
+<Layout 
+  title="Word Counter - Free Online Word Count Tool | Text Count Tools" 
+  description="Free online word counter with live statistics. Count words, characters, sentences, paragraphs instantly. Upload PDF, DOCX, TXT, MD files. 100% private, works offline, no limits."
+  canonicalURL="https://textcounttools.com/tools/word-counter/"
+  ogImage="https://textcounttools.com/og-image.png"
+  ogType="website"
+>
   <Navigation />
 
   <main id="main-content" class="pt-16 min-h-screen">
@@ -226,23 +232,23 @@ import Icon from '../../components/ui/Icon.astro';
       </div>
     </section>
 
-    <section id="faq" class="section-padding bg-bg-elevated border-y border-border" aria-labelledby="faq-heading">
+<section id="faq" class="section-padding bg-bg-elevated border-y border-border" aria-labelledby="faq-heading">
       <div class="container-main">
         <div class="max-w-4xl mx-auto text-center mb-12">
           <p class="text-mono-eyebrow text-text-muted mb-3">Frequently Asked Questions</p>
-          <h2 id="faq-heading" class="text-heading-lg text-text-primary mb-4">Everything you need to know</h2>
+          <h2 id="faq-heading" class="text-heading-lg text-text-primary mb-4">Word Counter Questions</h2>
         </div>
 
-        <dl class="space-y-4 max-w-4xl mx-auto" style="--details-radius: 12px;">
+        <dl class="space-y-4 max-w-4xl mx-auto">
           <div class="card-feature">
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  Is my text data sent to a server?
+                  What statistics does the Word Counter show?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  No. Everything runs entirely in your browser. Your text never leaves your device, and we don't store or transmit any of your data.
+                  The Word Counter displays: word count, character count (with and without spaces), sentence count, paragraph count, line count, average word length, and average sentence length. All statistics update in real-time as you type or paste text.
                 </dd>
               </details>
             </dt>
@@ -252,11 +258,11 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  What file formats are supported?
+                  Can I upload PDF and Word documents?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  We support TXT, Markdown (MD), PDF, and DOCX files up to 10MB in size. You can drag & drop files or click to browse.
+                  Yes. Supports TXT, Markdown (MD), PDF, and DOCX files up to 10MB. Text is extracted client-side using pdfjs-dist for PDFs and mammoth.js for DOCX—no server upload.
                 </dd>
               </details>
             </dt>
@@ -266,11 +272,11 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  Does auto-save work across browser sessions?
+                  How do I copy or export statistics?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Yes. Your text is saved to localStorage automatically as you type. It will be restored when you return to the page, even after closing the browser.
+                  Click "Copy Stats" to copy all metrics as JSON to clipboard, or "Download Stats" to save a .json file with timestamp. Useful for reports or record-keeping.
                 </dd>
               </details>
             </dt>
@@ -280,11 +286,11 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  Can I use this offline?
+                  Does the Word Counter auto-save my text?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Yes! Once loaded, the tool works completely offline. All text processing happens in your browser with no network requests required.
+                  Yes. Text is auto-saved to localStorage as you type. It persists across browser sessions and page refreshes. Use "Clear" button to reset both text and saved data.
                 </dd>
               </details>
             </dt>
@@ -294,11 +300,39 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  How accurate are the statistics?
+                  How accurate are the sentence and paragraph counts?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Our algorithms follow standard text analysis conventions. Word count uses regex word boundaries, sentences are detected by punctuation, and paragraphs by double newlines.
+                  Sentences are detected by punctuation (.!?), paragraphs by double newlines. Results follow standard text analysis conventions and match industry-standard tools.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Does the Word Counter work offline?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  Yes. After initial load, it works completely offline as a PWA. All processing happens in your browser—no network requests for text analysis.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Is there a limit on text length?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  No limit on pasted/typed text. File uploads limited to 10MB each (TXT, MD, PDF, DOCX). The tool handles very large texts efficiently without performance issues.
                 </dd>
               </details>
             </dt>

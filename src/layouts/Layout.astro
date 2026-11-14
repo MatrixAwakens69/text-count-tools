@@ -3,10 +3,22 @@ interface Props {
   title: string;
   description?: string;
   canonicalURL?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
   children: import('astro').AstroComponentInstance;
 }
 
-const { title, description = 'Free online text analysis tools - Word Counter and Reading Time Calculator. Fast, private, and works entirely in your browser.', canonicalURL = 'https://textcounttools.com' } = Astro.props;
+const { 
+  title, 
+  description = 'Free online text analysis tools - Word Counter and Reading Time Calculator. Fast, private, and works entirely in your browser.', 
+  canonicalURL = 'https://textcounttools.com',
+  ogImage = 'https://textcounttools.com/og-image.png',
+  ogType = 'website',
+  children
+} = Astro.props;
+
+const siteName = 'Text Count Tools';
+const twitterHandle = '@textcounttools';
 ---
 
 <!doctype html>
@@ -23,16 +35,55 @@ const { title, description = 'Free online text analysis tools - Word Counter and
     <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="word counter, reading time calculator, word counter online, free word counter, word counter tool, essay word counter, pdf word counter, reading time estimator, text analysis tools" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:site" content={twitterHandle} />
+    <meta name="twitter:creator" content={twitterHandle} />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Text Count Tools",
+      "url": "https://textcounttools.com",
+      "description": "Free online text analysis tools including Word Counter and Reading Time Calculator. Fast, private, works entirely in browser.",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Word Counter",
+        "Reading Time Calculator",
+        "File Upload (PDF, DOCX, TXT, MD)",
+        "Dark Mode",
+        "Offline Support"
+      ]
+    })}></script>
+    
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-400.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-500.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-600.woff2" />

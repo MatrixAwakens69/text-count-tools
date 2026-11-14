@@ -10,7 +10,13 @@ import Input from '../../components/ui/Input.astro';
 import Icon from '../../components/ui/Icon.astro';
 ---
 
-<Layout title="Reading Time Calculator - Text Count Tools" description="Free online reading time calculator. Estimate reading and speaking time for any text. Supports file upload (TXT, DOCX, PDF) and custom reading speeds. Works entirely in your browser.">
+<Layout 
+  title="Reading Time Calculator - Free Online Reading Time Estimator | Text Count Tools" 
+  description="Free online reading time calculator. Estimate reading and speaking time for any text. Supports file upload (PDF, DOCX, TXT, MD) and custom reading speeds. Works entirely in your browser."
+  canonicalURL="https://textcounttools.com/tools/reading-time-calculator/"
+  ogImage="https://textcounttools.com/og-image.png"
+  ogType="website"
+>
   <Navigation />
 
   <main id="main-content" class="pt-16 min-h-screen">
@@ -223,11 +229,11 @@ import Icon from '../../components/ui/Icon.astro';
       </div>
     </section>
 
-    <section id="faq" class="section-padding bg-bg-elevated border-y border-border" aria-labelledby="faq-heading">
+<section id="faq" class="section-padding bg-bg-elevated border-y border-border" aria-labelledby="faq-heading">
       <div class="container-main">
         <div class="max-w-4xl mx-auto text-center mb-12">
           <p class="text-mono-eyebrow text-text-muted mb-3">Frequently Asked Questions</p>
-          <h2 id="faq-heading" class="text-heading-lg text-text-primary mb-4">Everything you need to know</h2>
+          <h2 id="faq-heading" class="text-heading-lg text-text-primary mb-4">Reading Time Calculator Questions</h2>
         </div>
 
         <dl class="space-y-4 max-w-4xl mx-auto">
@@ -239,7 +245,7 @@ import Icon from '../../components/ui/Icon.astro';
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Reading time = word count ÷ words per minute (WPM). We use standard word counting (regex word boundaries). Speaking time uses 130 WPM, the average speaking pace.
+                  Reading time = word count ÷ words per minute (WPM). We use standard word counting (regex word boundaries). Speaking time uses 130 WPM—the average speaking pace for presentations and voiceovers.
                 </dd>
               </details>
             </dt>
@@ -249,11 +255,11 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  Which reading speed should I choose?
+                  Which reading speed preset should I choose?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  General Reading (200 WPM) works for most content. Use Academic/Scientific for dense papers, Novel for fiction, or Custom for your measured speed.
+                  General Reading (200 WPM) works for most content. Use Academic (150 WPM) for dense research, Scientific (180 WPM) for technical papers, Novel (250 WPM) for fiction, Fast (300 WPM) for speed readers, or set a custom WPM (50-1000).
                 </dd>
               </details>
             </dt>
@@ -263,11 +269,11 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  Is my text sent to a server?
+                  What's the difference between reading time and speaking time?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  No. All calculations happen in your browser. Your text never leaves your device.
+                  Reading time uses your selected WPM preset (default 200 WPM). Speaking time is fixed at 130 WPM—the average speaking pace for presentations and voiceovers. Speaking time is typically longer than silent reading time.
                 </dd>
               </details>
             </dt>
@@ -277,11 +283,11 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  What file formats are supported?
+                  What does the estimated finish time show?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  TXT, Markdown (MD), PDF, and DOCX files up to 10MB. Drag & drop or click to upload.
+                  Finish time = current time + estimated reading duration. It shows when you'll finish if you start reading now. Useful for planning study sessions, presentations, or content consumption schedules.
                 </dd>
               </details>
             </dt>
@@ -291,11 +297,39 @@ import Icon from '../../components/ui/Icon.astro';
             <dt>
               <details class="group">
                 <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
-                  Does it work offline?
+                  Can I upload PDF and Word documents?
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Yes! Once loaded, the calculator works completely offline with no network requests needed.
+                  Yes. Supports TXT, Markdown (MD), PDF, and DOCX files up to 10MB. Text is extracted client-side—no server upload. File text is used to calculate reading/speaking time instantly.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Does the Reading Time Calculator work offline?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  Yes. After initial load, it works completely offline as a PWA. All calculations happen in your browser—no network requests needed.
+                </dd>
+              </details>
+            </dt>
+          </div>
+
+          <div class="card-feature">
+            <dt>
+              <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer list-none p-4 text-heading-md text-text-primary">
+                  Is there a limit on text length or file size?
+                  <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
+                </summary>
+                <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
+                  No limit on pasted/typed text. File uploads limited to 10MB each (TXT, MD, PDF, DOCX). Handles very large texts efficiently.
                 </dd>
               </details>
             </dt>
