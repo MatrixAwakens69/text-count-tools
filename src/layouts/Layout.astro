@@ -61,7 +61,7 @@ const twitterHandle = '@textcounttools';
     <meta name="twitter:site" content={twitterHandle} />
     <meta name="twitter:creator" content={twitterHandle} />
     
-    <!-- Structured Data (JSON-LD) -->
+<!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -83,7 +83,15 @@ const twitterHandle = '@textcounttools';
         "Offline Support"
       ]
     })}></script>
-    
+
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MV7C4XPM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-400.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-500.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.0/files/geist-latin-600.woff2" />
