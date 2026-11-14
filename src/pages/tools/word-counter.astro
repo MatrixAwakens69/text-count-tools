@@ -34,8 +34,8 @@ import Icon from '../../components/ui/Icon.astro';
 
     <section class="section-padding" aria-labelledby="tool-heading">
       <div class="container-main">
-        <div class="space-y-8 lg:grid lg:grid-cols-[1fr_320px] lg:gap-12">
-          <div class="space-y-6 w-full max-w-4xl min-w-0">
+        <div class="space-y-8 lg:grid lg:grid-cols-[1fr_400px] lg:gap-12">
+          <div class="space-y-6 w-full max-w-5xl min-w-0">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
               <h2 id="tool-heading" class="text-heading-md text-text-primary">Input Text</h2>
               <div class="flex items-center gap-2 flex-wrap">
@@ -478,7 +478,9 @@ import Icon from '../../components/ui/Icon.astro';
 
         try {
           const isDark = document.documentElement.classList.contains('dark');
-          const baseScale = pdfScale * 2; // Higher base scale for crisp rendering
+          // Use devicePixelRatio for crisp rendering on high-DPI screens
+          const dpr = window.devicePixelRatio || 1;
+          const baseScale = pdfScale * 2 * dpr; // Higher base scale for crisp rendering
 
           for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
             const page = await pdfDoc.getPage(pageNum);
@@ -491,6 +493,9 @@ import Icon from '../../components/ui/Icon.astro';
             }
             canvas.width = viewport.width;
             canvas.height = viewport.height;
+            // Scale down for display to maintain crispness
+            canvas.style.width = `${viewport.width / dpr}px`;
+            canvas.style.height = `${viewport.height / dpr}px`;
 
             const context = canvas.getContext('2d');
             // Enable high-quality rendering

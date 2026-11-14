@@ -9,6 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:preview": "npm run build && wrangler deploy --env preview",
+    "cf:login": "wrangler login",
+    "cf:tail": "wrangler tail",
     "astro": "astro"
   },
   "dependencies": {
@@ -18,8 +22,10 @@
     "pdfjs-dist": "^6.5.438"
   },
   "devDependencies": {
+    "@astrojs/cloudflare": "^14.4.8",
     "@tailwindcss/postcss": "^4.3.5",
     "@tailwindcss/vite": "^4.3.5",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "wrangler": "^4.162.0"
   }
 }

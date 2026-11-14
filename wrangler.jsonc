@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "text-count-tools",
+  "compatibility_date": "2024-11-14",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "routes": [
+    { "pattern": "textcounttools.com/*", "zone_name": "textcounttools.com" }
+  ],
+  "env": {
+    "production": {
+      "name": "text-count-tools-prod",
+      "routes": [
+        { "pattern": "textcounttools.com/*", "zone_name": "textcounttools.com" }
+      ]
+    },
+    "preview": {
+      "name": "text-count-tools-preview",
+      "routes": [
+        { "pattern": "*.pages.dev/*", "zone_name": "textcounttools.com" }
+      ]
+    }
+  }
+}
