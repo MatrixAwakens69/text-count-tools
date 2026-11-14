@@ -1,4 +1,4 @@
-const CACHE_NAME = 'text-count-tools-v2';
+const CACHE_NAME = 'text-count-tools-v4';
 const STATIC_ASSETS = [
   '/scripts/theme-toggle.js',
   '/scripts/file-reader.js',

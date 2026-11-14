@@ -16,22 +16,29 @@ export async function readDocxFile(file) {
 
 export async function readPdfFile(file) {
   const arrayBuffer = await file.arrayBuffer();
-  const pdfjsLib = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/+esm');
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.js`;
+  // Use UMD build from unpkg which works better in browsers
+  const pdfjsLib = await import('https://unpkg.com/pdfjs-dist@4.0.379/build/pdf.mjs');
+  // UMD build bundles the worker, no separate worker needed
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs`;
 
-  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-  let text = '';
+  try {
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    let text = '';
 
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    const pageText = content.items
-      .map((item) => item.str)
-      .join(' ');
-    text += pageText + '\n\n';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const pageText = content.items
+        .map((item) => item.str)
+        .join(' ');
+      text += pageText + '\n\n';
+    }
+
+    return text.trim();
+  } catch (error) {
+    console.error('PDF parsing error:', error);
+    throw new Error(`Failed to read PDF: ${error.message}`);
   }
-
-  return text.trim();
 }
 
 export async function readFileContent(file) {

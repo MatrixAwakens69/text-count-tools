@@ -57,12 +57,40 @@ import Icon from '../../components/ui/Icon.astro';
             </div>
 
             <div class="relative">
-              <Textarea
-                id="text-input"
-                placeholder="Paste your text here, type directly, or drag & drop a file..."
-                rows={16}
-                hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click Upload button."
-              />
+              <div id="text-view">
+                <Textarea
+                  id="text-input"
+                  placeholder="Paste your text here, type directly, or drag & drop a file..."
+                  rows={16}
+                  hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click Upload button."
+                />
+              </div>
+              <div id="pdf-view" class="hidden">
+                <div class="relative bg-bg-elevated border border-border rounded-md min-h-[400px] max-h-[700px] overflow-auto">
+                  <div id="pdf-container" class="px-4 py-4 space-y-4"></div>
+                  <div id="pdf-loading" class="absolute inset-0 flex items-center justify-center bg-bg/80">
+                    <div class="animate-spin rounded-full h-8 w-8 border-2 border-link border-t-transparent"></div>
+                  </div>
+                  <div id="pdf-error" class="hidden absolute inset-0 flex items-center justify-center bg-bg/90 p-4 text-center">
+                    <p class="text-text-secondary">Failed to load PDF</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between mt-3 px-1">
+                  <div class="flex items-center gap-2">
+                    <span id="pdf-page-info" class="text-body-sm text-text-muted min-w-[80px] text-center">Loading...</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <label class="text-body-sm text-text-muted">Zoom:</label>
+                    <select id="pdf-zoom" class="input-text text-body-sm h-7 w-24 text-center" aria-label="Zoom level">
+                      <option value="0.75">75%</option>
+                      <option value="1" selected>100%</option>
+                      <option value="1.25">125%</option>
+                      <option value="1.5">150%</option>
+                      <option value="2">200%</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
               <div
                 id="drop-zone"
                 class="absolute inset-0 border-2 border-dashed border-border rounded-md flex items-center justify-center transition-colors bg-bg-elevated/50 hidden"
@@ -321,6 +349,20 @@ import Icon from '../../components/ui/Icon.astro';
 
       const SPEAKING_SPEED_WPM = 130;
 
+      const textView = document.getElementById('text-view');
+      const pdfView = document.getElementById('pdf-view');
+      const pdfCanvas = document.getElementById('pdf-canvas');
+      const pdfLoading = document.getElementById('pdf-loading');
+      const pdfError = document.getElementById('pdf-error');
+      const pdfPrev = document.getElementById('pdf-prev');
+      const pdfNext = document.getElementById('pdf-next');
+      const pdfPageInfo = document.getElementById('pdf-page-info');
+      const pdfZoom = document.getElementById('pdf-zoom');
+
+      let pdfDoc = null;
+      let pdfPageNum = 1;
+      let pdfScale = 1;
+
       function showToast(message, isError = false) {
         toast.textContent = message;
         toast.classList.remove('hidden', 'toast-error', 'toast-success');
@@ -392,6 +434,96 @@ import Icon from '../../components/ui/Icon.astro';
         resultsContent.classList.remove('hidden');
       }
 
+      async function loadPdf(file) {
+        pdfLoading.classList.remove('hidden');
+        pdfError.classList.add('hidden');
+        const container = document.getElementById('pdf-container');
+        container.innerHTML = '';
+
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const pdfjsLib = await import('https://unpkg.com/pdfjs-dist@4.0.379/build/pdf.mjs');
+          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs`;
+
+          pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          await renderAllPages();
+        } catch (error) {
+          console.error('PDF loading error:', error);
+          pdfLoading.classList.add('hidden');
+          pdfError.classList.remove('hidden');
+        }
+      }
+
+      async function renderAllPages() {
+        if (!pdfDoc) return;
+
+        pdfLoading.classList.remove('hidden');
+        pdfError.classList.add('hidden');
+        const container = document.getElementById('pdf-container');
+        container.innerHTML = '';
+
+        try {
+          const isDark = document.documentElement.classList.contains('dark');
+          const baseScale = pdfScale * 2; // Higher base scale for crisp rendering
+
+          for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+            const page = await pdfDoc.getPage(pageNum);
+            const viewport = page.getViewport({ scale: baseScale });
+
+            const canvas = document.createElement('canvas');
+            canvas.className = 'pdf-page-canvas mx-auto block';
+            if (isDark) {
+              canvas.classList.add('pdf-dark-mode');
+            }
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            const context = canvas.getContext('2d');
+            context.imageSmoothingEnabled = true;
+            context.imageSmoothingQuality = 'high';
+
+            await page.render({ canvasContext: context, viewport }).promise;
+            container.appendChild(canvas);
+          }
+
+          pdfPageInfo.textContent = `${pdfDoc.numPages} page${pdfDoc.numPages > 1 ? 's' : ''}`;
+          pdfLoading.classList.add('hidden');
+        } catch (error) {
+          console.error('PDF rendering error:', error);
+          pdfLoading.classList.add('hidden');
+          pdfError.classList.remove('hidden');
+        }
+      }
+
+      function applyDarkModeToPdf(isDark) {
+        const canvases = document.querySelectorAll('#pdf-container canvas');
+        canvases.forEach(canvas => {
+          if (isDark) {
+            canvas.classList.add('pdf-dark-mode');
+          } else {
+            canvas.classList.remove('pdf-dark-mode');
+          }
+        });
+      }
+
+      pdfZoom.addEventListener('change', async (e) => {
+        pdfScale = parseFloat(e.target.value);
+        if (pdfDoc) {
+          await renderAllPages();
+        }
+      });
+
+      // Listen for theme changes to update PDF dark mode
+      const themeObserver = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          if (mutation.attributeName === 'class') {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyDarkModeToPdf(isDark);
+          }
+        }
+      });
+      themeObserver.observe(document.documentElement, { attributes: true });
+
       function saveToStorage(text) {
         try {
           localStorage.setItem(STORAGE_KEY, text);
@@ -427,11 +559,15 @@ import Icon from '../../components/ui/Icon.astro';
         fileInput.value = '';
         fileInfo.classList.add('hidden');
         dropZone.classList.remove('hidden');
+        textView.classList.remove('hidden');
+        pdfView.classList.add('hidden');
+        pdfDoc = null;
+        pdfPageNum = 1;
         showToast('Text cleared');
       }
 
       async function handleFile(file) {
-        const { validateFile, readFileContent } = await import('/scripts/file-reader.js');
+        const { validateFile, readFileContent } = await import('/scripts/file-reader.js?v=3');
         const validation = validateFile(file);
         if (!validation.valid) {
           showToast(validation.error, true);
@@ -449,6 +585,16 @@ import Icon from '../../components/ui/Icon.astro';
           saveToStorage(text);
           updateResults(text);
           showToast('File loaded successfully');
+
+          const isPdf = file.name.toLowerCase().endsWith('.pdf');
+          if (isPdf) {
+            textView.classList.add('hidden');
+            pdfView.classList.remove('hidden');
+            await loadPdf(file);
+          } else {
+            textView.classList.remove('hidden');
+            pdfView.classList.add('hidden');
+          }
         } catch (error) {
           showToast('Failed to read file: ' + error.message, true);
           fileInfo.classList.add('hidden');

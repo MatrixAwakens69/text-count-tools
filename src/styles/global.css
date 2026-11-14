@@ -750,4 +750,32 @@
     background-color: var(--color-error);
     color: var(--color-on-primary);
   }
+
+  /* PDF Viewer Styles */
+  .pdf-page-canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-floating);
+  }
+
+  .pdf-page-canvas.pdf-dark-mode {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  .pdf-page-canvas.pdf-dark-mode img,
+  .pdf-page-canvas.pdf-dark-mode video {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  /* Ensure smooth scrolling for PDF container */
+  #pdf-container {
+    scroll-behavior: smooth;
+  }
+
+  /* High-quality canvas rendering */
+  canvas.pdf-page-canvas {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 }
