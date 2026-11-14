@@ -36,7 +36,7 @@ import Icon from '../../components/ui/Icon.astro';
 
     <section class="section-padding" aria-labelledby="tool-heading">
       <div class="container-main">
-        <div class="space-y-8 lg:grid lg:grid-cols-[1fr_400px] lg:gap-12">
+        <div class="space-y-8 lg:grid lg:grid-cols-[1fr_300px] lg:gap-12">
           <div class="space-y-6 w-full max-w-5xl min-w-0">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
               <h2 id="tool-heading" class="text-heading-md text-text-primary">Input Text</h2>
@@ -68,7 +68,7 @@ import Icon from '../../components/ui/Icon.astro';
                   id="text-input"
                   placeholder="Paste your text here, type directly, or drag & drop a file..."
                   rows={16}
-                  hint="Supports TXT, MD, PDF, and DOCX files. Drag & drop or click Upload button."
+                  hint="Supports TXT, MD, PDF and DOCX files. Drag & drop or click Upload button."
                 />
               </div>
               <div id="pdf-view" class="hidden">
@@ -87,13 +87,16 @@ import Icon from '../../components/ui/Icon.astro';
                   </div>
                   <div class="flex items-center gap-2">
                     <label class="text-body-sm text-text-muted">Zoom:</label>
-                    <select id="pdf-zoom" class="input-text text-body-sm h-7 w-24 text-center" aria-label="Zoom level">
-                      <option value="0.75">75%</option>
-                      <option value="1" selected>100%</option>
-                      <option value="1.25">125%</option>
-                      <option value="1.5">150%</option>
-                      <option value="2">200%</option>
-                    </select>
+<div class="flex items-center gap-1">
+                    <button id="zoom-out" type="button" class="btn-ghost-sm text-button-sm h-7 px-2 inline-flex items-center" aria-label="Zoom out">
+                      <Icon name="zoom-out" width="16" height="16" />
+                    </button>
+                    <input id="pdf-zoom" type="number" class="input-text text-body-sm h-7 w-20 text-center" value="100" min="50" max="300" step="25" aria-label="Zoom percentage">
+                    <button id="zoom-in" type="button" class="btn-ghost-sm text-button-sm h-7 px-2 inline-flex items-center" aria-label="Zoom in">
+                      <Icon name="zoom-in" width="16" height="16" />
+                    </button>
+                    <span class="text-body-sm text-text-muted">%</span>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -195,13 +198,13 @@ import Icon from '../../components/ui/Icon.astro';
                     name="speed-preset"
                     label="Reading speed preset"
                     options={[
-                      { value: 'very-slow', label: 'Very Slow (100 wpm) — Complex technical content' },
-                      { value: 'academic', label: 'Academic Paper (150 wpm) — Dense academic papers' },
-                      { value: 'scientific', label: 'Scientific Journal (180 wpm) — Highly technical material' },
-                      { value: 'general', label: 'General Reading (200 wpm) — Average adult reading' },
-                      { value: 'novel', label: 'Novel / Fiction (250 wpm) — Enjoyable reading' },
-                      { value: 'fast', label: 'Fast Reader (300 wpm) — Experienced speed readers' },
-                      { value: 'custom', label: 'Custom WPM — Set your own speed' },
+                      { value: 'very-slow', label: 'Very Slow (100 wpm), Complex technical content' },
+                      { value: 'academic', label: 'Academic Paper (150 wpm), Dense academic papers' },
+                      { value: 'scientific', label: 'Scientific Journal (180 wpm), Highly technical material' },
+                      { value: 'general', label: 'General Reading (200 wpm), Average adult reading' },
+                      { value: 'novel', label: 'Novel / Fiction (250 wpm), Enjoyable reading' },
+                      { value: 'fast', label: 'Fast Reader (300 wpm), Experienced speed readers' },
+                      { value: 'custom', label: 'Custom WPM, Set your own speed' },
                     ]}
                     value="general"
                   />
@@ -245,7 +248,7 @@ import Icon from '../../components/ui/Icon.astro';
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Reading time = word count ÷ words per minute (WPM). We use standard word counting (regex word boundaries). Speaking time uses 130 WPM—the average speaking pace for presentations and voiceovers.
+                  Reading time = word count ÷ words per minute (WPM). We use standard word counting (regex word boundaries). Speaking time uses 130 WPM, the average speaking pace for presentations and voiceovers.
                 </dd>
               </details>
             </dt>
@@ -273,7 +276,7 @@ import Icon from '../../components/ui/Icon.astro';
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Reading time uses your selected WPM preset (default 200 WPM). Speaking time is fixed at 130 WPM—the average speaking pace for presentations and voiceovers. Speaking time is typically longer than silent reading time.
+                  Reading time uses your selected WPM preset (default 200 WPM). Speaking time is fixed at 130 WPM, the average speaking pace for presentations and voiceovers. Speaking time is typically longer than silent reading time.
                 </dd>
               </details>
             </dt>
@@ -301,7 +304,7 @@ import Icon from '../../components/ui/Icon.astro';
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Yes. Supports TXT, Markdown (MD), PDF, and DOCX files up to 10MB. Text is extracted client-side—no server upload. File text is used to calculate reading/speaking time instantly.
+                  Yes. Supports TXT, Markdown (MD), PDF and DOCX files up to 10MB. Text is extracted client-side, no server upload. File text is used to calculate reading/speaking time instantly.
                 </dd>
               </details>
             </dt>
@@ -315,7 +318,7 @@ import Icon from '../../components/ui/Icon.astro';
                   <Icon name="arrowRight" width="20" height="20" class="text-text-muted group-open:rotate-90 transition-transform" />
                 </summary>
                 <dd class="px-4 pb-4 text-body-md text-text-secondary prose-full">
-                  Yes. After initial load, it works completely offline as a PWA. All calculations happen in your browser—no network requests needed.
+                  Yes. After initial load, it works completely offline as a PWA. All calculations happen in your browser, no network requests needed.
                 </dd>
               </details>
             </dt>
@@ -498,32 +501,51 @@ import Icon from '../../components/ui/Icon.astro';
 
         try {
           const isDark = document.documentElement.classList.contains('dark');
-          // Use devicePixelRatio for crisp rendering on high-DPI screens
           const dpr = window.devicePixelRatio || 1;
-          const baseScale = pdfScale * 2 * dpr; // Higher base scale for crisp rendering
+
+          // Get container width for proper layout (subtract padding)
+          const containerRect = container.getBoundingClientRect();
+          const containerWidth = containerRect.width - 32; // 16px padding each side
 
           for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
             const page = await pdfDoc.getPage(pageNum);
-            const viewport = page.getViewport({ scale: baseScale });
+
+            // Get page's natural viewport at scale 1.0 to determine aspect ratio
+            const naturalViewport = page.getViewport({ scale: 1.0 });
+            const pageAspectRatio = naturalViewport.width / naturalViewport.height;
+
+            // Calculate display width based on container, then scale height to preserve aspect ratio
+            // Use pdfScale as a multiplier on the base display size
+            const baseDisplayWidth = Math.min(containerWidth, naturalViewport.width * pdfScale);
+            const displayWidth = baseDisplayWidth;
+            const displayHeight = displayWidth / pageAspectRatio;
+
+            // Render at high DPI for crispness
+            const renderScale = (displayWidth * dpr) / naturalViewport.width;
+            const renderViewport = page.getViewport({ scale: renderScale });
 
             const canvas = document.createElement('canvas');
             canvas.className = 'pdf-page-canvas mx-auto block';
             if (isDark) {
               canvas.classList.add('pdf-dark-mode');
             }
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-            // Scale down for display to maintain crispness
-            canvas.style.width = `${viewport.width / dpr}px`;
-            canvas.style.height = `${viewport.height / dpr}px`;
+            canvas.width = renderViewport.width;
+            canvas.height = renderViewport.height;
+            // CSS size for display (maintains aspect ratio)
+            canvas.style.width = `${displayWidth}px`;
+            canvas.style.height = `${displayHeight}px`;
 
             const context = canvas.getContext('2d');
-            // Enable high-quality rendering
             context.imageSmoothingEnabled = true;
             context.imageSmoothingQuality = 'high';
 
-            await page.render({ canvasContext: context, viewport }).promise;
-            container.appendChild(canvas);
+            await page.render({ canvasContext: context, viewport: renderViewport }).promise;
+
+            // Wrap in div for proper spacing
+            const pageWrapper = document.createElement('div');
+            pageWrapper.className = 'pdf-page-wrapper';
+            pageWrapper.appendChild(canvas);
+            container.appendChild(pageWrapper);
           }
 
           pdfPageInfo.textContent = `${pdfDoc.numPages} page${pdfDoc.numPages > 1 ? 's' : ''}`;
@@ -546,10 +568,49 @@ import Icon from '../../components/ui/Icon.astro';
         });
       }
 
-      pdfZoom.addEventListener('change', async (e) => {
-        pdfScale = parseFloat(e.target.value);
-        if (pdfDoc) {
-          await renderAllPages();
+      const zoomInBtn = document.getElementById('zoom-in');
+      const zoomOutBtn = document.getElementById('zoom-out');
+      const zoomInput = document.getElementById('pdf-zoom');
+
+      function updateZoomDisplay() {
+        zoomInput.value = Math.round(pdfScale * 100);
+      }
+
+      function applyZoom(newScale) {
+        const oldScale = pdfScale;
+        pdfScale = Math.max(0.5, Math.min(3, newScale));
+        updateZoomDisplay();
+        
+        // Scale existing canvases by the RATIO of new/old scale
+        const ratio = pdfScale / oldScale;
+        const canvases = document.querySelectorAll('#pdf-container canvas');
+        canvases.forEach(canvas => {
+          const currentWidth = parseFloat(canvas.style.width) || canvas.width;
+          const currentHeight = parseFloat(canvas.style.height) || canvas.height;
+          canvas.style.width = `${currentWidth * ratio}px`;
+          canvas.style.height = `${currentHeight * ratio}px`;
+        });
+      }
+
+      zoomInBtn.addEventListener('click', () => {
+        applyZoom(pdfScale * 1.2);
+      });
+
+      zoomOutBtn.addEventListener('click', () => {
+        applyZoom(pdfScale / 1.2);
+      });
+
+      zoomInput.addEventListener('change', (e) => {
+        const newScale = parseFloat(e.target.value) / 100;
+        if (!isNaN(newScale)) {
+          applyZoom(newScale);
+        }
+      });
+
+      zoomInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          zoomInput.blur();
         }
       });
 
@@ -625,6 +686,7 @@ import Icon from '../../components/ui/Icon.astro';
           saveToStorage(text);
           updateResults(text);
           showToast('File loaded successfully');
+          hideHeroSection();
 
           const isPdf = file.name.toLowerCase().endsWith('.pdf');
           if (isPdf) {
@@ -661,6 +723,7 @@ import Icon from '../../components/ui/Icon.astro';
         debouncedUpdate(e.target.value);
         if (e.target.value.trim()) {
           hideDropZone();
+          hideHeroSection();
         }
       });
 
@@ -734,6 +797,14 @@ import Icon from '../../components/ui/Icon.astro';
       uploadBtn.addEventListener('click', () => {
         fileInput.click();
       });
+
+      // Hero section hide logic
+      const heroSection = document.querySelector('[aria-labelledby="hero-heading"]');
+      function hideHeroSection() {
+        if (heroSection && !heroSection.classList.contains('hidden')) {
+          heroSection.classList.add('hidden');
+        }
+      }
 
       speedPreset.addEventListener('change', (e) => {
         const isCustom = e.target.value === 'custom';
